@@ -23,3 +23,29 @@ function addProductToCart($stockItemID){
 
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
+function deleteCartItem($cart, $id){
+    $cart = getCart();                          // eerst de huidige cart ophalen
+
+    unset($cart[$id]);                  //zo ja:  aantal met 1 verhogen
+    header("Refresh:0");
+    saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
+}
+
+function increaseAmmountOfCart($cart, $id){
+    $cart = getCart();                          // eerst de huidige cart ophalen
+    $ammount = $cart[$id];
+    $cart[$id]++;
+
+    saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
+}
+function decreaseAmmountOfCart($cart, $id){
+    $cart = getCart();                          // eerst de huidige cart ophalen
+    $ammount = $cart[$id];
+    if($ammount == 1){
+        "error kan niet minder zijn dan 0";
+    }else{
+        $cart[$id]--;
+    }
+
+    saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
+}
