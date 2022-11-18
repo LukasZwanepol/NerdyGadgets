@@ -16,7 +16,7 @@
         foreach( $cart as $key => $StockItem){
             $Items = getStockItem($key, $databaseConnection);
             $id = $Items["StockItemID"];
-            $ammount = $cart[$id];
+            $amount = $cart[$id];
             ?>
             <div class="row">
                 <div id="ArticleHeader" class="col-10">
@@ -89,10 +89,10 @@
                 <div class="col-2 text-center">
                     <?php
                         if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['increase-'.$id])) {
-                            increaseAmmountOfCart($cart, $id);
+                            increaseAmountOfCart($cart, $id);
                         }
                         if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['decrease-'.$id])) {
-                            decreaseAmmountOfCart($cart, $id);
+                            decreaseAmountOfCart($cart, $id);
                         }
                         if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['delete-'.$id])) {
                             deleteCartItem($cart, $id);
@@ -102,24 +102,24 @@
                         <div> <button type="submit" name="increase-<?php print($id) ?>" value="increase">+</button></div>
                         <div>
                             <?php 
-                                print($ammount); 
+                                print($amount);
                             ?>
                         </div>
                         <div> <button type="submit" name="decrease-<?php print($id) ?>" value="decrease">-</button></div>
                         <div>
                             <?php 
-                                if($ammount == 1){
+                                if($amount == 1){
                                     ?>
-                                    <button type="submit" name="delete-<?php print($id) ?>">wilt u het product verwijderen?</button>
+                                    <button type="submit" name="delete-<?php print($id) ?>">Wilt u het product verwijderen?</button>
                                     <?php
                                 }
                             ?>
                         </div>
                     </form>
                     <div>
-                        <p> totaal is: <?php 
-                            $total = $ammount * $Items['SellPrice'];
-                            print $total; ?> 
+                        <p> Totaal is: <?php
+                            $total = $amount * $Items['SellPrice'];
+                            print round($total, 2); ?>
                         </p>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
             $totalShoppingValue += $total;
         };
         ?>
-        <p><a> De totale waarde van uw winkelwagen is : <?php print($totalShoppingValue); ?></a></p>
+        <p><a> De totale waarde van uw winkelwagen is: <?php print(round($totalShoppingValue, 2)); ?></a></p>
                 
         <p><a href='view.php?id=0'>Naar artikelpagina van artikel 0</a></p>
     </div>
