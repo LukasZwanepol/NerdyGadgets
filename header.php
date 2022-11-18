@@ -24,38 +24,46 @@ $databaseConnection = connectToDatabase();
 <body>
 <div class="Background">
     <div class="row" id="Header">
-        <div class="col-2">
-            <div id="LogoImage"></div>
-        </div>
-        <div class="col-8" id="CategoriesBar">
-            <ul id="ul-class">
-                <?php
-                $HeaderStockGroups = getHeaderStockGroups($databaseConnection);
+        <div class="col-12">
+            <nav class="navbar navbar-expand-lg">
+                <a class="navbar-brand" href="#">
+                    <img id="LogoImage">
+                </a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a href="categories.php" class="nav-item nav-link">Alle categorieën</a>
+                        </li>
+                        <?php
+                            $HeaderStockGroups = getHeaderStockGroups($databaseConnection);
+                            foreach ($HeaderStockGroups as $HeaderStockGroup) {
+                                ?>
+                                <li class="nav-item">
+                                    <a href="browse.php?category_id=<?php print $HeaderStockGroup['StockGroupID']; ?>"
+                                        class="nav-item nav-link"><?php print $HeaderStockGroup['StockGroupName']; ?>
+                                    </a>
+                                </li>
+                                <?php
+                            }
+                        ?>
 
-                foreach ($HeaderStockGroups as $HeaderStockGroup) {
-                    ?>
-                    <li>
-                        <a href="browse.php?category_id=<?php print $HeaderStockGroup['StockGroupID']; ?>"
-                           class="HrefDecoration"><?php print $HeaderStockGroup['StockGroupName']; ?></a>
-                    </li>
-                    <?php
-                }
-                ?>
-                <li>
-                    <a href="categories.php" class="HrefDecoration">Alle categorieën</a>
-                </li>
-                <li>
-                    <a href="cart.php" class="HrefDecoration" id="winkelwagen">Winkelwagen</a>
-                </li>
-            </ul>
+                    </ul>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                            <a href="cart.php" class="nav-item nav-link" id="winkelwagen">Winkelwagen</a>
+                        </li>
+                        <li class="nav-item" id="ul-class-navigation">
+                            <a href="browse.php" class="nav-item nav-link HrefDecoration"><i class="fas fa-search search"></i> Zoeken</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
 <!-- code voor US3: zoeken -->
 
-        <ul id="ul-class-navigation">
-            <li>
-                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken</a>
-            </li>
-        </ul>
+        
 
 <!-- einde code voor US3 zoeken -->
     </div>

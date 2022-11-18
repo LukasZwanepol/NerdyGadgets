@@ -3,18 +3,134 @@
     include "cartfuncties.php";
     include __DIR__ . "/header.php";
     $StockGroups = getStockGroups($databaseConnection);
-
 ?>
-<div id="Wrap">
-    <h1>Inhoud Winkelwagen</h1>
-    <?php
-    $cart = getCart();
-    print_r($cart);
-    //gegevens per artikelen in $cart (naam, prijs, etc.) uit database halen
-    //totaal prijs berekenen
-    //mooi weergeven in html
-    //etc.
+<div class="row">
+    <div class="col-1"></div>
+    <div id="Wrap" class="col-10">
+        <h1>Inhoud Winkelwagen</h1>
+        <?php
+        $cart = getCart();
+        $totalShoppingValue = 0;
+        // $StockItem = getStockItem($_GET['id'], $databaseConnection);
 
-    ?>
-    <p><a href='view.php?id=0'>Naar artikelpagina van artikel 0</a></p>
+        foreach( $cart as $key => $StockItem){
+            $Items = getStockItem($key, $databaseConnection);
+            $id = $Items["StockItemID"];
+            $ammount = $cart[$id];
+            ?>
+            <div class="row">
+                <div id="ArticleHeader" class="col-10">
+                    <?php
+                    if (isset($StockItemImage)) {
+                        // één plaatje laten zien
+                        if (count($StockItemImage) == 1) {
+                            ?>
+                            <div id="ImageFrame"
+                                style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
+                            <?php
+                        } else if (count($StockItemImage) >= 2) { ?>
+                            <!-- meerdere plaatjes laten zien -->
+                            <div id="ImageFrame">
+                                <div id="ImageCarousel" class="carousel slide" data-interval="false">
+                                    <!-- Indicators -->
+                                    <ul class="carousel-indicators">
+                                        <?php for ($i = 0; $i < count($StockItemImage); $i++) {
+                                            ?>
+                                            <li data-target="#ImageCarousel"
+                                                data-slide-to="<?php print $i ?>" <?php print (($i == 0) ? 'class="active"' : ''); ?>></li>
+                                            <?php
+                                        } ?>
+                                    </ul>
+
+                                    <!-- slideshow -->
+                                    <div class="carousel-inner">
+                                        <?php for ($i = 0; $i < count($StockItemImage); $i++) {
+                                            ?>
+                                            <div class="carousel-item <?php print ($i == 0) ? 'active' : ''; ?>">
+                                                <img src="Public/StockItemIMG/<?php print $StockItemImage[$i]['ImagePath'] ?>">
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+
+                                    <!-- knoppen 'vorige' en 'volgende' -->
+                                    <a class="carousel-control-prev" href="#ImageCarousel" data-slide="prev">
+                                        <span class="carousel-control-prev-icon"></span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#ImageCarousel" data-slide="next">
+                                        <span class="carousel-control-next-icon"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    } else {
+                        ?>
+                        <div id="ImageFrame"
+                            style="background-image: url('Public/StockGroupIMG/<?php print $Items['BackupImagePath']; ?>'); background-size: cover;"></div>
+                        <?php
+                    }
+                    ?>
+
+
+                    <h1 class="StockItemID">Artikelnummer: <?php print $id; ?></h1>
+                    <h2 class="StockItemNameViewSize StockItemName">
+                        <?php print $Items['StockItemName']; ?>
+                    </h2>
+                    <div class="QuantityText"><?php print $Items['QuantityOnHand']; ?></div>
+                    <div id="StockItemHeaderLeft">
+                        <div class="CenterPriceLeft">
+                            <div class="CenterPriceLeftChild">
+                                <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $Items['SellPrice']); ?></b></p>
+                                <h6> Inclusief BTW </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 text-center">
+                    <?php
+                        if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['increase-'.$id])) {
+                            increaseAmmountOfCart($cart, $id);
+                        }
+                        if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['decrease-'.$id])) {
+                            decreaseAmmountOfCart($cart, $id);
+                        }
+                        if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['delete-'.$id])) {
+                            deleteCartItem($cart, $id);
+                        }
+                    ?>
+                    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                        <div> <button type="submit" name="increase-<?php print($id) ?>" value="increase">+</button></div>
+                        <div>
+                            <?php 
+                                print($ammount); 
+                            ?>
+                        </div>
+                        <div> <button type="submit" name="decrease-<?php print($id) ?>" value="decrease">-</button></div>
+                        <div>
+                            <?php 
+                                if($ammount == 1){
+                                    ?>
+                                    <button type="submit" name="delete-<?php print($id) ?>">wilt u het product verwijderen?</button>
+                                    <?php
+                                }
+                            ?>
+                        </div>
+                    </form>
+                    <div>
+                        <p> totaal is: <?php 
+                            $total = $ammount * $Items['SellPrice'];
+                            print $total; ?> 
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <?php
+            $totalShoppingValue += $total;
+        };
+        ?>
+        <p><a> De totale waarde van uw winkelwagen is : <?php print($totalShoppingValue); ?></a></p>
+                
+        <p><a href='view.php?id=0'>Naar artikelpagina van artikel 0</a></p>
+    </div>
+    <div class="col-1"></div>
 </div>
