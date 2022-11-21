@@ -63,6 +63,7 @@ input {
 table tr th,
 table tr td {
     padding: 10px;
+    text-align: center;
 }
 ul#ul-class-navigation {
     right: 10px;

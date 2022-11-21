@@ -105,12 +105,17 @@
                                 print($amount);
                             ?>
                         </div>
-                        <div> <button type="submit" name="decrease-<?php print($id) ?>" value="decrease">-</button></div>
+                        <div>
+                            <?php if($amount > 1){?>
+                                <button type="submit" name="decrease-<?php print($id) ?>" value="decrease">-</button>
+                            <?php
+                            }?>
+                        </div>
                         <div>
                             <?php 
                                 if($amount == 1){
                                     ?>
-                                    <button type="submit" name="delete-<?php print($id) ?>">Wilt u het product verwijderen?</button>
+                                    <button type="submit" name="delete-<?php print($id) ?>">Verwijderen</button>
                                     <?php
                                 }
                             ?>
