@@ -88,29 +88,32 @@
                 </div>
                 <div class="col-2 text-center">
                     <?php
-                        if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['increase-'.$id])) {
-                            increaseAmountOfCart($cart, $id);
+                        if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['increaseItem'])) {
+                            increaseAmountOfCart($_POST['increaseItem']);
+                            print '<meta http-equiv="refresh" content="0">';
                         }
-                        if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['decrease-'.$id])) {
-                            decreaseAmountOfCart($cart, $id);
+                        if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['decreaseItem'])) {
+                            decreaseAmountOfCart($_POST['decreaseItem']);
+                            print '<meta http-equiv="refresh" content="0">';
                         }
-                        if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['delete-'.$id])) {
-                            deleteCartItem($cart, $id);
+                        if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deleteItem'])) {
+                            deleteCartItem($_POST['deleteItem']);
+                            print '<meta http-equiv="refresh" content="0">';
                         }
                     ?>
                     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                        <div> <button type="submit" name="increase-<?php print($id) ?>" value="increase">+</button></div>
+                        <div> <button type="submit" name="increaseItem" value="<?php print($id) ?>">+</button></div>
                         <div>
                             <?php 
                                 print($amount);
                             ?>
                         </div>
-                        <div> <button type="submit" name="decrease-<?php print($id) ?>" value="decrease">-</button></div>
+                        <div> <button type="submit" name="decreaseItem" value="<?php print($id) ?>">-</button></div>
                         <div>
                             <?php 
                                 if($amount == 1){
                                     ?>
-                                    <button type="submit" name="delete-<?php print($id) ?>">Wilt u het product verwijderen?</button>
+                                    <button type="submit" name="deleteItem" value="<?php print($id) ?>">Wilt u het product verwijderen?</button>
                                     <?php
                                 }
                             ?>

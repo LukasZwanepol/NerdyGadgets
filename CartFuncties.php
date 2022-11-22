@@ -23,7 +23,7 @@ function addProductToCart($stockItemID){
 
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
-function deleteCartItem($cart, $id){
+function deleteCartItem($id){
     $cart = getCart();                          // eerst de huidige cart ophalen
 
     unset($cart[$id]);                              //zo ja:  aantal met 1 verhogen
@@ -31,14 +31,13 @@ function deleteCartItem($cart, $id){
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
 
-function increaseAmountOfCart($cart, $id){
+function increaseAmountOfCart($id){
     $cart = getCart();                          // eerst de huidige cart ophalen
-    $amount = $cart[$id];
     $cart[$id]++;
 
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
-function decreaseAmountOfCart($cart, $id){
+function decreaseAmountOfCart($id){
     $cart = getCart();                          // eerst de huidige cart ophalen
     $amount = $cart[$id];
     if($amount == 1){
