@@ -60,9 +60,9 @@ function bewerkenKlant($connection, $naam, $woonplaats, $nummer) {
 function klantGegevensVerwijderen($gegevens) {
     $connection = maakVerbinding();
     if (verwijderenKlant($connection,$gegevens["nummer"]) == True) {
-        $gegevens["melding"] = "De klant is verwijderd";
+        $gegevens["melding"] = "<h2>De klant is verwijderd</h2>";
     } else {
-        $gegevens["melding"] = "Het verwijderen is mislukt";
+        $gegevens["melding"] = "<h2>Het verwijderen is mislukt</h2>";
     }
     sluitVerbinding($connection);
     return $gegevens;
@@ -70,7 +70,7 @@ function klantGegevensVerwijderen($gegevens) {
 
 function verwijderenKlant($connection, $nummer) {
     $statement = mysqli_prepare($connection, "DELETE FROM klant WHERE nummer = ?");
-    mysqli_stmt_bind_param($statement, 's', $nummer);
+    mysqli_stmt_bind_param($statement, 'i', $nummer);
     mysqli_stmt_execute($statement);
     return mysqli_stmt_affected_rows($statement) == 1;
 }
