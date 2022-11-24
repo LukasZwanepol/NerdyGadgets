@@ -33,7 +33,7 @@ function deleteCartItem($id){
 
 function increaseAmountOfCart($id){
     $cart = getCart();                          // eerst de huidige cart ophalen
-    $cart[$id]++;
+    $cart[$id]= $cart[$id] + 1 ;
 
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
@@ -43,7 +43,7 @@ function decreaseAmountOfCart($id){
     if($amount == 1){
         print "Hoeveelheid kan niet minder zijn dan 0";
     }else{
-        $cart[$id]--;
+        $cart[$id]= $cart[$id] - 1;
     }
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }

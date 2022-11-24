@@ -20,6 +20,7 @@ $databaseConnection = connectToDatabase();
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/typekit.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 </head>
 <body>
 <div class="Background">
