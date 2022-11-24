@@ -9,11 +9,8 @@
 ?>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-12 text-center">
-            <h1>Bestellingen</h1>    
-        </div>
         <div class="col-5 border rounded p-0 m-2">
-            <h4 class="text-center p-0 py-2 border">Persoonsgegevens : </h4>
+            <h4 class="text-center p-0 py-2 border bg-light text-dark">Persoonsgegevens </h4>
             <form class="p-2">
                 <div class="form-group">
                     <div class="form-group row px-3">
@@ -36,7 +33,7 @@
             </form>
         </div>
         <div class="col-5 border rounded m-2 p-0">
-            <h4 class="text-center p-0 py-2 border">Betaaaaaling jongeee : </h4>
+            <h4 class="text-center p-0 py-2 border bg-light text-dark">Betalings gegevens </h4>
             <form class="p-2">
                 <div class="form-group">
                     <div class="form-group row px-5">
@@ -47,15 +44,19 @@
                         <input class="form-control w-50 text-center mb-2" disabled placeholder="Betaalgegevens">
                         <input class="form-control w-100">
                     </div>
+                    <div class="form-group d-flex justify-content-end px-4">
+                        <button class="form-control w-25 h-100">Bestellen</button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
     <div class="orderProduct m-4 rounded border">
         <div class="row">
+            <div class="col-12 text-center pt-3"><h2>Bestelling</h2></div>
             <div class="col-1"></div>
             <div class="col-10">
-                <h3 class="pt-5 px-5">Producten: </h3>
+                <h3 class="px-5">Producten: </h3>
             </div>
             <div class="col-1"></div>
             <div class="col-12 d-flex justify-content-center">
@@ -87,7 +88,7 @@
                             <label class="form-control h-100"><?php print($Items['StockItemName'])?></label>
                         </div>
                         <div class="form-group">
-                            <label class="form-control h-100 align-middle">Aantal : <?php print($ammount) ?></label>
+                            <label class="form-control h-100 align-middle text-center">Aantal : <?php print($ammount) ?></label>
                         </div>
                         <div class="form-group">
                             <button class="form-control h-100">Verwijder</button>
@@ -102,11 +103,11 @@
                 </form>
             </div>
             <div class="col-2"></div>
-            <div class="col-4 mx-2 border rounded">
+            <div class="col-4 mx-2 mb-4 border rounded">
                 <h4>Verzendkosten : </h4>
             </div>
 
-            <div class="col-4 mx-2 border rounded">
+            <div class="col-4 mx-4 mb-4 border rounded">
                 <h4> Prijs :</h4>
             </div>
         </div>

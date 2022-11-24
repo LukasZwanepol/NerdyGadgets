@@ -26,7 +26,7 @@
                         if (count($StockItemImage) == 1) {
                             ?>
                             <div id="ImageFrame"
-                                style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
+                                style="width:300px; background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
                             <?php
                         } else if (count($StockItemImage) >= 2) { ?>
                             <!-- meerdere plaatjes laten zien -->
@@ -66,7 +66,7 @@
                     } else {
                         ?>
                         <div id="ImageFrame"
-                            style="background-image: url('Public/StockGroupIMG/<?php print $Items['BackupImagePath']; ?>'); background-size: cover;"></div>
+                            style="background-image: url('Public/StockGroupIMG/<?php print $Items['BackupImagePath']; ?>'); background-size: cover; width:300px;"></div>
                         <?php
                     }
                     ?>
@@ -133,7 +133,7 @@
         ?>
         <p><a> De totale waarde van uw winkelwagen is: <?php print(round($totalShoppingValue, 2)); ?></a></p>
                 
-        <p><a href='order.php'>Naar artikelpagina van artikel 0</a></p>
+        <p><a href='order.php'>Bestellen</a></p>
     </div>
     <div class="col-1"></div>
 </div>
