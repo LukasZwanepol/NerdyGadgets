@@ -88,7 +88,6 @@ ul#ul-class-navigation li {
 }
 #Content {
     margin-top: 200px;
-    height: 79%;
 }
 #FilterFrame {
     position: fixed;
@@ -166,7 +165,8 @@ ul#ul-class-navigation li {
     position: relative
 }
 #ImageFrame {
-    width: 300px;
+    min-width: 75px;
+    max-width: 300px;
     height: 300px;
     background-color: rgb(36, 41, 143);
     float: left;
@@ -245,6 +245,9 @@ ul#ul-class-navigation li {
     width: 250px;
     height: 90px;
     margin: 55px 55px 55px 10%;
+}
+.orderProduct{
+    min-height: 300px;
 }
 ul#ul-class li {
     display: inline;

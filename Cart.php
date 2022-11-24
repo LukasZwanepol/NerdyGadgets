@@ -130,7 +130,7 @@
         ?>
         <p><a> De totale waarde van uw winkelwagen is: <?php print(round($totalShoppingValue, 2)); ?></a></p>
                 
-        <p><a href='view.php?id=0'>Naar artikelpagina van artikel 0</a></p>
+        <p><a href='order.php'>Naar artikelpagina van artikel 0</a></p>
     </div>
     <div class="col-1"></div>
 </div>
