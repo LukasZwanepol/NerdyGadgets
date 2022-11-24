@@ -27,7 +27,7 @@ $StockGroups = getStockGroups($databaseConnection);
                         if (count($StockItemImage) == 1) {
                             ?>
                             <div id="ImageFrame"
-                                 style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
+                                style="width:300px; background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
                             <?php
                         } else if (count($StockItemImage) >= 2) { ?>
                             <!-- meerdere plaatjes laten zien -->
@@ -67,12 +67,10 @@ $StockGroups = getStockGroups($databaseConnection);
                     } else {
                         ?>
                         <div id="ImageFrame"
-                             style="background-image: url('Public/StockGroupIMG/<?php print $Items['BackupImagePath']; ?>'); background-size: cover;"></div>
+                             style="background-image: url('Public/StockGroupIMG/<?php print $Items['BackupImagePath']; ?>'); background-size: cover; width:300px;"></div>
                         <?php
                     }
                     ?>
-
-
                     <h1 class="StockItemName" ; style=font-size:160%>
                         <?php print $Items['StockItemName']; ?>
                     </h1>
@@ -141,6 +139,7 @@ $StockGroups = getStockGroups($databaseConnection);
         };
         ?>
         <p style="margin-top: 2%; margin-left: 85%;"><a>Totaal: <?php print(round($totalShoppingValue, 2)); ?></a></p>
+        <p><a href='order.php'>Bestellen</a></p>
         <p style="margin-top: -5%; margin-bottom: 5%;"><a href='view.php?id=<?php $rand = (rand(1, 200));
             if ($rand != NULL) {
                 print $rand;

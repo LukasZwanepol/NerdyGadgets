@@ -45,6 +45,5 @@ function decreaseAmountOfCart($id){
     }else{
         $cart[$id]= $cart[$id] - 1;
     }
-
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
