@@ -26,7 +26,7 @@ $databaseConnection = connectToDatabase();
     <div class="row" id="Header">
         <div class="col-12">
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="./">
                     <img id="LogoImage">
                 </a>
                 <div class="collapse navbar-collapse">
