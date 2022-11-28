@@ -43,6 +43,7 @@
                     <div class="form-group row px-5">
                         <input class="form-control w-50 text-center mb-2" disabled placeholder="Betaalgegevens">
                         <input class="form-control w-100">
+                        //dropdown menu met ideal en credit card ofzo
                     </div>
                     <div class="form-group d-flex justify-content-end px-4">
                         <button class="form-control w-25 h-100">Bestellen</button>
