@@ -14,6 +14,19 @@ $StockGroups = getStockGroups($databaseConnection);
         $totalShoppingValue = 0;
         // $StockItem = getStockItem($_GET['id'], $databaseConnection);
 
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['increaseItem'])) {
+            increaseAmountOfCart($_POST['increaseItem']);
+            print '<meta http-equiv="refresh" content="0">';
+        }
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['decreaseItem'])) {
+            decreaseAmountOfCart($_POST['decreaseItem']);
+            print '<meta http-equiv="refresh" content="0">';
+        }
+        if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deleteItem'])) {
+            deleteCartItem($_POST['deleteItem']);
+            print '<meta http-equiv="refresh" content="0">';
+        }
+
         foreach ($cart as $key => $StockItem) {
             $Items = getStockItem($key, $databaseConnection);
             $id = $Items["StockItemID"];
@@ -90,20 +103,6 @@ $StockGroups = getStockGroups($databaseConnection);
                     </div>
                 </div>
                 <div class="col-2 text-center">
-                    <?php
-                    if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['increaseItem'])) {
-                        increaseAmountOfCart($_POST['increaseItem']);
-                        print '<meta http-equiv="refresh" content="0">';
-                    }
-                    if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['decreaseItem'])) {
-                        decreaseAmountOfCart($_POST['decreaseItem']);
-                        print '<meta http-equiv="refresh" content="0">';
-                    }
-                    if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deleteItem'])) {
-                        deleteCartItem($_POST['deleteItem']);
-                        print '<meta http-equiv="refresh" content="0">';
-                    }
-                    ?>
                     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                         <div>
                             <button style="background-color:#676EFF; border-radius: 12px; width: 30px; border: 1px rgba(35, 40, 47, 0.8); margin-top: 40px;"
