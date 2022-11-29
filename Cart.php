@@ -138,14 +138,13 @@ $StockGroups = getStockGroups($databaseConnection);
         };
         ?>
         <p style="margin-top: 2%; margin-left: 85%;"><a>Totaal: <?php print(round($totalShoppingValue, 2)); ?></a></p>
-        <p><a href='order.php'>Bestellen</a></p>
         <p style="margin-top: -5%; margin-bottom: 5%;"><a href='view.php?id=<?php $rand = (rand(1, 200));
             if ($rand != NULL) {
                 print $rand;
             } else {
                 print 1;
             } ?>'>Naar willekeurige artikelpagina</a></p>
+        <p><a href='gegevens.php'><button style="background-color: #676EFF; font-size: large; border-radius: 12px;width: 150px; height: 40px; border: 1px rgba(35, 40, 47, 0.8); margin-left: 80%;">Naar checkout</button></a></p>
     </div>
-    <div class="col-1"></div>
 </div>
 
