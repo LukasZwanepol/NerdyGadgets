@@ -30,12 +30,13 @@ $StockGroups = getStockGroups($databaseConnection);
         foreach ($cart as $key => $StockItem) {
             $Items = getStockItem($key, $databaseConnection);
             $id = $Items["StockItemID"];
+            $StockItemImage = getStockItemImage($id, $databaseConnection);
             $amount = $cart[$id];
             ?>
             <div class="row">
                 <div class="col-10" style="border-bottom: 1px solid darkblue;">
                     <?php
-                    if (isset($StockItemImage)) {
+                    if ($StockItemImage != null) {
                         // één plaatje laten zien
                         if (count($StockItemImage) == 1) {
                             ?>
