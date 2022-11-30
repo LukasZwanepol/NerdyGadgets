@@ -14,20 +14,20 @@
             <form class="p-2">
                 <div class="form-group">
                     <div class="input-group mb-3">
-                        <label class="form-label" id="basic-addon1">Naam</label>
-                        <input type="text" class="form-control" placeholder=""" aria-label="Username" aria-describedby="basic-addon1">
+                        <span class="input-group-text" id="basic-addon1">Naam</span>
+                        <p type="text" class="form-control"><?php if (isset($_POST["Voornaam"])) {print ($_POST["Voornaam"]." ".$_POST["Achternaam"]);} ?></p>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Adres</span>
-                        <input type="text" class="form-control" placeholder="Voer hier uw adres in" aria-label="Username" aria-describedby="basic-addon1">
+                        <p type="text" class="form-control"><?php if (isset($_POST["Adres"])) {print ($_POST["Adres"]. " ".$_POST["Nummer"]);} ?></p>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Postcode</span>
-                        <input type="text" class="form-control" placeholder="Voer hier uw postcode in" aria-label="Username" aria-describedby="basic-addon1">
+                        <p type="text" class="form-control"><?php if (isset($_POST["Postcode"])) {print ($_POST["Postcode"]);} ?></p>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Woonplaats</span>
-                        <input type="text" class="form-control" placeholder="Voer hier uw woonplaats in" aria-label="Username" aria-describedby="basic-addon1">
+                        <p type="text" class="form-control"><?php if (isset($_POST["Woonplaats"])) {print ($_POST["Woonplaats"]);} ?></p>
                     </div>
                     <!--
                     <div class="form-group row px-3">
@@ -85,7 +85,7 @@
             <div class="col-12 d-flex justify-content-center">
                 <form>
                     <?php
-                        foreach($cart as $key => $ammount){
+                        foreach($cart as $key => $amount){
                             $Items = getStockItem($key, $databaseConnection);
                     ?>
                     <div class="form-group row">
@@ -111,7 +111,7 @@
                             <label class="form-control h-100"><?php print($Items['StockItemName'])?></label>
                         </div>
                         <div class="form-group">
-                            <label class="form-control h-100 align-middle text-center">Aantal : <?php print($ammount) ?></label>
+                            <label class="form-control h-100 align-middle text-center">Aantal : <?php print($amount) ?></label>
                         </div>
                         <div class="form-group">
                             <button class="form-control h-100">Verwijder</button>
@@ -133,7 +133,7 @@
             -->
             <div class="col-6"></div>
             <div class="col-4 mx-4 mb-4 border rounded">
-                <h4> Prijs :</h4>
+                <h4 > Prijs : <?php $total = $amount * $Items['SellPrice']; $totalShoppingValue += $total; print(round($totalShoppingValue, 2));?> </h4>
             </div>
             <div class="col-10"></div>
             <div class="form-group">
