@@ -147,7 +147,6 @@
                 echo '<script>console.log("Optie ingevuld!"); </script>';
                 $betaalSelected = true;
             }
-
             if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['Bestellen'])){
 
                 echo '<script>console.log("Bestellen ingedrukt"); </script>';
