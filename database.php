@@ -106,7 +106,7 @@ function maakVerbinding() {
 }
 
 function selecteerKlanten($connection) {
-    $sql = "SELECT nummer, naam, woonplaats FROM klant ORDER BY naam";
+    $sql = "SELECT * FROM klant ORDER BY nummer";
     $result = mysqli_fetch_all(mysqli_query($connection, $sql),MYSQLI_ASSOC);
     return $result;
 }

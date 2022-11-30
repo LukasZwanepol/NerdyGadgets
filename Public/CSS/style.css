@@ -248,6 +248,7 @@ ul#ul-class-navigation li {
     width: 250px;
     height: 90px;
     margin: 55px 55px 55px 10%;
+    padding: 50px;
 }
 .orderProduct{
     min-height: 300px;

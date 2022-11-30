@@ -12,7 +12,7 @@
         <p><a href="toevoegenklant.php">Nieuwe klant toevoegen</a></p>
         <table>
             <thead >
-                <tr><th>Nr</th><th>Naam</th><th>Woonplaats</th><th></th><th></th></tr>
+                <tr><th>Nr</th><th>Voornaam</th><th>Achternaam</th><th>Woonplaats</th><th></th></tr>
             </thead>
             <tbody>
                 <?php toonKlantenOpHetScherm($klanten); ?>
