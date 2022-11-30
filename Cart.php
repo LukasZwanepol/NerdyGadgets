@@ -145,7 +145,11 @@ $StockGroups = getStockGroups($databaseConnection);
             } else {
                 print 1;
             } ?>'>Naar willekeurige artikelpagina</a></p>
-        <p><a href='gegevens.php'><button style="background-color: #676EFF; font-size: large; border-radius: 12px;width: 150px; height: 40px; border: 1px rgba(35, 40, 47, 0.8); margin-left: 80%;">Naar checkout</button></a></p>
+        <?php if ($totalShoppingValue != 0) {
+            print ("<p><a href='gegevens.php'><button style=\"background-color: #676EFF; font-size: large; border-radius: 12px;width: 150px; height: 40px; border: 1px rgba(35, 40, 47, 0.8); margin-left: 80%;\">Naar checkout</button></a></p>");
+        }
+        ?>
+
     </div>
 </div>
 
