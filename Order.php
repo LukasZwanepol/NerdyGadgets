@@ -13,6 +13,23 @@
             <h4 class="text-center p-0 py-2 border bg-light text-dark">Persoonsgegevens </h4>
             <form class="p-2">
                 <div class="form-group">
+                    <div class="input-group mb-3">
+                        <label class="form-label" id="basic-addon1">Naam</label>
+                        <input type="text" class="form-control" placeholder=""" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Adres</span>
+                        <input type="text" class="form-control" placeholder="Voer hier uw adres in" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Postcode</span>
+                        <input type="text" class="form-control" placeholder="Voer hier uw postcode in" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Woonplaats</span>
+                        <input type="text" class="form-control" placeholder="Voer hier uw woonplaats in" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <!--
                     <div class="form-group row px-3">
                         <input class="form-control w-25" disabled placeholder="Naam">
                         <input class="form-control w-75">
@@ -28,26 +45,31 @@
                     <div class="form-group row px-3">
                         <input class="form-control w-25" disabled placeholder="Woonplaats">
                         <input class="form-control w-75">
-                    </div>
+                    </div>-->
                 </div>
             </form>
         </div>
         <div class="col-5 border rounded m-2 p-0">
             <h4 class="text-center p-0 py-2 border bg-light text-dark">Betalings gegevens </h4>
-            <form class="p-2">
+            <form class="p-2" method="post">
                 <div class="form-group">
-                    <div class="form-group row px-5">
+                    <!--<div class="form-group row px-5">
                         <input class="form-control w-50 text-center mb-2" disabled placeholder="Bestelgegevens">
                         <input class="form-control w-100">
-                    </div>
+                    </div> -->
                     <div class="form-group row px-5">
-                        <input class="form-control w-50 text-center mb-2" disabled placeholder="Betaalgegevens">
-                        <input class="form-control w-100">
-                        //dropdown menu met ideal en credit card ofzo
+                        <input class="form-control w-50 text-center mb-2" disabled placeholder="Betaalwijze">
+                        <select class="form-select w-100" id="floatingSelectGrid" name="BetaalOptie">
+                            <option selected value="0" name="Select">Selecteer betaalwijze</option>
+                            <option value="1" name="Ideal">Ideal</option>
+                            <option value="2" disabled name="Credit card">Credit card</option>
+                        </select>
+                        <!dropdown menu met ideal en credit card ofzo>
                     </div>
-                    <div class="form-group d-flex justify-content-end px-4">
+                    <!--<div class="form-group d-flex justify-content-end px-4">
                         <button class="form-control w-25 h-100">Bestellen</button>
                     </div>
+                    -->
                 </div>
             </form>
         </div>
@@ -95,7 +117,7 @@
                             <button class="form-control h-100">Verwijder</button>
                         </div>
                         <div class="form-group">
-                            <label class="form-control h-100"><?php print($Items['SellPrice'])?></label>
+                            <label class="form-control h-100"><?php print(round($Items['SellPrice'], 2))?></label>
                         </div>
                     </div>
                     <?php
@@ -103,14 +125,38 @@
                     ?>
                 </form>
             </div>
+            <!--
             <div class="col-2"></div>
             <div class="col-4 mx-2 mb-4 border rounded">
                 <h4>Verzendkosten : </h4>
             </div>
-
+            -->
+            <div class="col-6"></div>
             <div class="col-4 mx-4 mb-4 border rounded">
                 <h4> Prijs :</h4>
             </div>
+            <div class="col-10"></div>
+            <div class="form-group">
+                <form method="post">
+                <button type="submit" name="Bestellen" class="btn btn-primary" tabindex="-1">Bestellen</button>
+                </form>
+            </div>
+            <?php
+            $betaalSelected = false;
+            if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['Ideal'])){
+                echo '<script>console.log("Optie ingevuld!"); </script>';
+                $betaalSelected = true;
+            }
+
+            if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['Bestellen'])){
+
+                echo '<script>console.log("Bestellen ingedrukt"); </script>';
+                if (isset($_POST['BetaalOptie']) != "0"){
+                    echo '<script>console.log("Optie ingevuld!"); </script>';
+                }
+
+            }
+            ?>
         </div>
     </div>
 </div>
