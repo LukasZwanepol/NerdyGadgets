@@ -3,7 +3,6 @@
     include "orderFuncties.php";
     include __DIR__ . "/header.php";
     $StockGroups = getStockGroups($databaseConnection);
-
     $cart = getCart();
     $totalShoppingValue = 0;
 ?>
@@ -34,7 +33,7 @@
         </div>
         <div class="col-5 border rounded m-2 p-0">
             <h4 class="text-center p-0 py-2 border bg-light text-dark">Betalings gegevens </h4>
-            <form class="p-2">
+            <form method="post" class="p-2">
                 <div class="form-group">
                     <div class="form-group row px-5">
                         <input class="form-control w-50 text-center mb-2" disabled placeholder="Bestelgegevens">
@@ -46,7 +45,7 @@
                         //dropdown menu met ideal en credit card ofzo
                     </div>
                     <div class="form-group d-flex justify-content-end px-4">
-                        <button class="form-control w-25 h-100">Bestellen</button>
+                        <button type="submit" class="form-control w-25 h-100">Bestellen</button>
                     </div>
                 </div>
             </form>
@@ -65,6 +64,7 @@
                     <?php
                         foreach($cart as $key => $ammount){
                             $Items = getStockItem($key, $databaseConnection);
+                            print_r($Items['QuantityOnHand']);
                     ?>
                     <div class="form-group row">
                         <div class="form-group">
@@ -83,7 +83,6 @@
                             <?php
                         }
                         ?>
-                            <!-- <img src="..." alt="..." class="form-control h-100"> -->
                         </div>
                         <div class="form-group w-25 ">
                             <label class="form-control h-100"><?php print($Items['StockItemName'])?></label>
@@ -99,7 +98,12 @@
                         </div>
                     </div>
                     <?php
+                            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                                removeStockItemAmount($key, $ammount, $databaseConnection);
+                                print '<meta http-equiv="refresh" content="0">';
+                            }
                         }
+
                     ?>
                 </form>
             </div>
