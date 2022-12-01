@@ -6,11 +6,11 @@
 include __DIR__ . "/header.php";
 include 'klantfuncties.php';
 
-$gegevens["naam"] = isset($_GET["naam"]) ? $_GET["naam"] : "";
-$gegevens["woonplaats"] = isset($_GET["woonplaats"]) ? $_GET["woonplaats"] : "";
-$gegevens["nummer"] = isset($_GET["nummer"]) ? $_GET["nummer"] : "";
+$gegevens["naam"] = isset($_POST["naam"]) ? $_POST["naam"] : "";
+$gegevens["woonplaats"] = isset($_POST["woonplaats"]) ? $_POST["woonplaats"] : "";
+$gegevens["nummer"] = isset($_POST["nummer"]) ? $_POST["nummer"] : "";
 
-if (isset($_GET["verwijderen"])) {
+if (isset($_POST["verwijderen"])) {
     $gegevens = klantGegevensVerwijderen($gegevens);
 }
 ?>
@@ -21,7 +21,7 @@ if (isset($_GET["verwijderen"])) {
     print($gegevens["naam"]);
     print ' verwijderen?</h2>';             //Hier wordt gevraagd of de bezoeker de klant wil verwijderen
 
-    print '<form method="get" action="verwijderenklant.php">
+    print '<form method="POST" action="verwijderenklant.php">
     <button type="submit" name="verwijderen" value="Verwijderen">Verwijderen</button>
     <input type="hidden" name="nummer" value="';
     print($gegevens["nummer"]);
