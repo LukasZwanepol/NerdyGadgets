@@ -3,7 +3,6 @@
     include "orderFuncties.php";
     include __DIR__ . "/header.php";
     $StockGroups = getStockGroups($databaseConnection);
-
     $cart = getCart();
     $totalShoppingValue = 0;
 ?>
@@ -66,10 +65,9 @@
                         </select>
                         <!dropdown menu met ideal en credit card ofzo>
                     </div>
-                    <!--<div class="form-group d-flex justify-content-end px-4">
-                        <button class="form-control w-25 h-100">Bestellen</button>
+                    <div class="form-group d-flex justify-content-end px-4">
+                        <button type="submit" class="form-control w-25 h-100">Bestellen</button>
                     </div>
-                    -->
                 </div>
             </form>
         </div>
@@ -87,6 +85,7 @@
                     <?php
                         foreach($cart as $key => $amount){
                             $Items = getStockItem($key, $databaseConnection);
+                            print_r($Items['QuantityOnHand']);
                     ?>
                     <div class="form-group row">
                         <div class="form-group">
@@ -105,7 +104,6 @@
                             <?php
                         }
                         ?>
-                            <!-- <img src="..." alt="..." class="form-control h-100"> -->
                         </div>
                         <div class="form-group w-25 ">
                             <label class="form-control h-100"><?php print($Items['StockItemName'])?></label>
@@ -121,7 +119,12 @@
                         </div>
                     </div>
                     <?php
+                            if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                                removeStockItemAmount($key, $ammount, $databaseConnection);
+                                print '<meta http-equiv="refresh" content="0">';
+                            }
                         }
+
                     ?>
                 </form>
             </div>
