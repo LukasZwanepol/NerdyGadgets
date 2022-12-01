@@ -50,7 +50,7 @@
         </div>
         <div class="col-5 border rounded m-2 p-0">
             <h4 class="text-center p-0 py-2 border bg-light text-dark">Betalings gegevens </h4>
-            <form class="p-2" method="post">
+            <form method="post" class="p-2">
                 <div class="form-group">
                     <!--<div class="form-group row px-5">
                         <input class="form-control w-50 text-center mb-2" disabled placeholder="Bestelgegevens">
