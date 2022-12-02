@@ -19,23 +19,24 @@ $totalShoppingValue = 0;
                 <div class="form-group">
                     <div class="form-group row px-3">
                         <div class="w-25 bg-transparent"><h5>Voornaam:</h5></div>
-                        <input class="form-control w-75" name="Voornaam">
+                        <input class="form-control w-75" name="Voornaam" required>
                     </div>
                     <div class="form-group row px-3">
                         <div class="w-25 bg-transparent"><h5>Achternaam:</h5></div>
-                        <input class="form-control w-75" name="Achternaam">
+                        <input class="form-control w-75" name="Achternaam" required>
                     </div>
                     <div class="form-group row px-3">
                         <div class="w-25 bg-transparent"><h6>Adres + huisnummer:</h6></div>
-                        <input class="form-control w-50" name="Adres"> <input class="form-control w-25" name="Nummer">
+                        <input class="form-control w-50" name="Adres" required>
+                        <input class="form-control w-25" name="Nummer" required>
                     </div>
                     <div class="form-group row px-3">
                         <div class="w-25 bg-transparent"><h5>Postcode:</h5></div>
-                        <input class="form-control w-75" name="Postcode">
+                        <input class="form-control w-75" name="Postcode" required>
                     </div>
                     <div class="form-group row px-3">
                         <div class="w-25 bg-transparent"><h5>Woonplaats:</h5></div>
-                        <input class="form-control w-75" name="Woonplaats">
+                        <input class="form-control w-75" name="Woonplaats" required>
                     </div>
                 </div>
                 <br>
