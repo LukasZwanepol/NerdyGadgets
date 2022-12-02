@@ -79,8 +79,9 @@ function getStockItem($id, $databaseConnection) {
 
     return $Result;
 }
-
-function removeStockItemAmount($id, $ammount, $databaseConnection) {
+// remove items from stock function
+function removeStockItemAmount($id, $amount, $databaseConnection) {
+    // get all the items from database
     $Query = "
                 SELECT SI.StockItemID, QuantityOnHand
                 FROM stockitems SI 
@@ -92,8 +93,9 @@ function removeStockItemAmount($id, $ammount, $databaseConnection) {
     mysqli_stmt_execute($Statement);
     $R = mysqli_stmt_get_result($Statement);
     $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+    // loop trough every item and remove amount thats in cart
     foreach($R as $item) {
-        $result = $item['QuantityOnHand'] - $ammount;
+        $result = $item['QuantityOnHand'] - $amount;
 
         $Querys = "
                 UPDATE stockitemholdings 

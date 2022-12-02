@@ -9,10 +9,10 @@ $StockGroups = getStockGroups($databaseConnection);
     <div class="col-1"></div>
     <div id="Wrap" class="col-10">
         <h1 style="font-size:160%;color:#676EFF;">Inhoud Winkelwagen</h1>
+        <!-- functions shopping cart, Increase/ Decrease / Delete -->
         <?php
         $cart = getCart();
         $totalShoppingValue = 0;
-        // $StockItem = getStockItem($_GET['id'], $databaseConnection);
 
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['increaseItem'])) {
             increaseAmountOfCart($_POST['increaseItem']);
@@ -26,7 +26,7 @@ $StockGroups = getStockGroups($databaseConnection);
             deleteCartItem($_POST['deleteItem']);
             print '<meta http-equiv="refresh" content="0">';
         }
-
+        // loop trough every item in cart
         foreach ($cart as $key => $StockItem) {
             $cartItem = getStockItem($key, $databaseConnection);
             $id = $cartItem["StockItemID"];

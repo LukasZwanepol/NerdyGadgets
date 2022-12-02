@@ -9,6 +9,7 @@
 ?>
 <div class="container">
     <div class="row justify-content-center">
+        <!-- show overview of user data -->
         <div class="col-5 border rounded p-0 m-2">
             <h4 class="text-center p-0 py-2 border bg-light text-dark">Persoonsgegevens </h4>
             <form class="p-2">
@@ -32,6 +33,7 @@
                 </div>
             </form>
         </div>
+        <!-- show payment details -->
         <div class="col-5 border rounded m-2 p-0">
             <h4 class="text-center p-0 py-2 border bg-light text-dark">Betalings gegevens </h4>
             <form method="post" class="p-2">
@@ -52,6 +54,7 @@
             </form>
         </div>
     </div>
+    <!-- Overview of your products -->
     <div class="orderProduct m-4 rounded border">
         <div class="row">
             <div class="col-12 text-center pt-3"><h2>Bestelling</h2></div>
@@ -62,6 +65,7 @@
             <div class="col-1"></div>
             <div class="col-12 d-flex justify-content-center">
                 <form>
+                    <!-- loop through each item in cart -->
                     <?php
                         foreach($cart as $key => $amount){
                             $Items = getStockItem($key, $databaseConnection);
@@ -69,20 +73,21 @@
                     <div class="form-group row">
                         <div class="form-group">
                             <?php
-                        if (isset($StockItemImage)) {
-                            // één plaatje laten zien
-                            if (count($StockItemImage) == 1) {
+                            // check if item has image
+                            if (isset($StockItemImage)) {
+                                // één plaatje laten zien
+                                if (count($StockItemImage) == 1) {
+                                    ?>
+                                    <div id="ImageFrame" class="form-control h-100" style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-repeat: no-repeat; background-position: center;"></div>
+                                    <?php
+                                }
+                            } else {
                                 ?>
-                                <div id="ImageFrame" class="form-control h-100" style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-repeat: no-repeat; background-position: center;"></div>
+                                <div id="ImageFrame" class="form-control h-100"
+                                    style="background-image: url('Public/StockGroupIMG/<?php print $Items['BackupImagePath']; ?>'); background-size: cover;"></div>
                                 <?php
                             }
-                        } else {
                             ?>
-                            <div id="ImageFrame" class="form-control h-100"
-                                style="background-image: url('Public/StockGroupIMG/<?php print $Items['BackupImagePath']; ?>'); background-size: cover;"></div>
-                            <?php
-                        }
-                        ?>
                         </div>
                         <div class="form-group w-25 ">
                             <label class="form-control h-100"><?php print($Items['StockItemName'])?></label>
@@ -97,11 +102,13 @@
                             <label class="form-control h-100"><?php print(round($Items['SellPrice'], 2))?></label>
                         </div>
                     </div>
+                    <!-- on press button remove amount from stock -->
                     <?php
                             if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                                removeStockItemAmount($key, $ammount, $databaseConnection);
+                                removeStockItemAmount($key, $amount, $databaseConnection);
                                 print '<meta http-equiv="refresh" content="0">';
                             }
+                            // count total value of shopping cart items
                             $total += $amount * $Items['SellPrice'];
                         }
 
@@ -109,6 +116,7 @@
                 </form>
             </div>
             <div class="col-6"></div>
+            <!-- display total value of cart -->
             <div class="col-4 mx-4 mb-4 border rounded">
                 <h4 > Prijs : <?php $totalShoppingValue += $total; print(round($totalShoppingValue, 2));?> </h4>
             </div>
@@ -118,6 +126,7 @@
                 <button type="submit" name="Bestellen" class="btn btn-primary" tabindex="-1">Bestellen</button>
                 </form>
             </div>
+            <!-- ideal -->
             <?php
             $betaalSelected = false;
             if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['Ideal'])){
