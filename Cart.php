@@ -91,7 +91,7 @@ $StockGroups = getStockGroups($databaseConnection);
                     <h2 class="StockItemIDa"
                         style="font-size:80%; margin-top:2%"> <?php print ("Artikelnummer: $id"); ?>
                     </h2>
-                    <div style="margin-top: 5%;">Vooraat: <?php print $cartItem['QuantityOnHand']; ?></div>
+                    <div style="margin-top: 5%;">Voorraad: <?php print $cartItem['QuantityOnHand']; ?></div>
                     <div id="StockItemHeaderLeft">
                         <div class="CenterPriceLeft">
                             <div class="CenterPriceLeftChild">
