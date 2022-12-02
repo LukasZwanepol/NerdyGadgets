@@ -46,14 +46,15 @@
                         <!dropdown menu met ideal en credit card ofzo>
                     </div>
                     <div class="form-group d-flex justify-content-end px-4">
-                        <button type="submit" class="form-control w-25 h-100">Bestellen</button>
+                        <a href="https://www.ideal.nl/demo/qr/?app=ideal" class="button form-control w-25 h-100" type="submit">Bestellen</a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
     <div class="orderProduct m-4 rounded border">
-        <div class="row">
+
+    <div class="row">
             <div class="col-12 text-center pt-3"><h2>Bestelling</h2></div>
             <div class="col-1"></div>
             <div class="col-10">
@@ -115,7 +116,7 @@
             <div class="col-10"></div>
             <div class="form-group">
                 <form method="post">
-                <button type="submit" name="Bestellen" class="btn btn-primary" tabindex="-1">Bestellen</button>
+
                 </form>
             </div>
             <?php
