@@ -107,7 +107,7 @@
                     <?php
                             if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 removeStockItemAmount($key, $amount, $databaseConnection);
-                                print '<meta http-equiv="refresh" content="0">';
+                               // print '<meta http-equiv="refresh" content="0">';
                             }
                             // count total value of shopping cart items
                             $total += $amount * $Items['SellPrice'];
