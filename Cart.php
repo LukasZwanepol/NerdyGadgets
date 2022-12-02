@@ -28,10 +28,10 @@ $StockGroups = getStockGroups($databaseConnection);
         }
 
         foreach ($cart as $key => $StockItem) {
-            $Items = getStockItem($key, $databaseConnection);
-            $id = $Items["StockItemID"];
+            $cartItem = getStockItem($key, $databaseConnection);
+            $id = $cartItem["StockItemID"];
             $StockItemImage = getStockItemImage($id, $databaseConnection);
-            $amount = $cart[$id];
+            $orderAmount = $cart[$id];
             ?>
             <div class="row">
                 <div class="col-10" style="border-bottom: 1px solid darkblue;">
@@ -81,23 +81,23 @@ $StockGroups = getStockGroups($databaseConnection);
                     } else {
                         ?>
                         <div id="ImageFrame"
-                             style="background-image: url('Public/StockGroupIMG/<?php print $Items['BackupImagePath']; ?>'); background-size: cover; width:300px;"></div>
+                             style="background-image: url('Public/StockGroupIMG/<?php print $cartItem['BackupImagePath']; ?>'); background-size: cover; width:300px;"></div>
                         <?php
                     }
                     ?>
                     <h1 class="StockItemName" ; style=font-size:160%>
-                        <?php print $Items['StockItemName']; ?>
+                        <?php print $cartItem['StockItemName']; ?>
                     </h1>
                     <h2 class="StockItemIDa"
                         style="font-size:80%; margin-top:2%"> <?php print ("Artikelnummer: $id"); ?>
                     </h2>
-                    <div style="margin-top: 5%;"><?php print $Items['QuantityOnHand']; ?></div>
+                    <div style="margin-top: 5%;">Vooraat: <?php print $cartItem['QuantityOnHand']; ?></div>
                     <div id="StockItemHeaderLeft">
                         <div class="CenterPriceLeft">
                             <div class="CenterPriceLeftChild">
                                 <p class="StockItemPriceText"
                                    style="margin-top: -60px;font-family:pt-sans, sans-serif;">
-                                    <b><?php print sprintf("€ %.2f", $Items['SellPrice']); ?></b></p>
+                                    <b><?php print sprintf("€ %.2f", $cartItem['SellPrice']); ?></b></p>
                                 <h6 style="margin-top: -5%; font-size: 70%"> Inclusief BTW </h6>
                             </div>
                         </div>
@@ -112,7 +112,7 @@ $StockGroups = getStockGroups($databaseConnection);
                         </div>
                         <div>
                             <?php
-                            print($amount);
+                            print($orderAmount);
                             ?>
                         </div>
                         <div>
@@ -128,7 +128,7 @@ $StockGroups = getStockGroups($databaseConnection);
                     </form>
                     <div>
                         <p> Subtotaal: <?php
-                            $total = $amount * $Items['SellPrice'];
+                            $total = $orderAmount * $cartItem['SellPrice'];
                             print round($total, 2); ?>
                         </p>
                     </div>
