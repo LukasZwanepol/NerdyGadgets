@@ -2,6 +2,14 @@
 <?php
 include __DIR__ . "/header.php";
 ?>
+<script>
+    document.getElementById("popup-window").style.visibility = "visible";
+
+    function closePopup() {
+        document.getElementById("popup-window").style.visibility = "hidden";
+    }
+</script>
+<div id="overlay"></div>
 <div class="IndexStyle">
     <div class="col-11">
         <div class="TextPrice">
@@ -16,6 +24,15 @@ include __DIR__ . "/header.php";
         </a>
         <div class="HomePageStockItemPicture"></div>
     </div>
+</div>
+<div id="popup-window">
+    <div class="TextMain">
+        Nieuw binnen!
+    </div>
+    <a href="http://localhost/NerdyGadgets/view.php?id=16">
+        <img src="Public/ProductIMGHighRes/mug.png" alt="Foto">
+    </a>
+    <button id="button" onclick="closePopup()">Sluiten</button>
 </div>
 <?php
 include __DIR__ . "/footer.php";
