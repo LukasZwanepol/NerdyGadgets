@@ -126,17 +126,8 @@ function getStockItemImage($id, $databaseConnection) {
     return $R;
 }
 
-function maakVerbinding() {
-    $host = 'localhost';
-    $user = 'root';
-    $pass = '';
-    $databasename = "Klantenservice";
-    $connection = mysqli_connect($host, $user, $pass, $databasename);
-    return $connection;
-}
-
 function selecteerKlanten($connection) {
-    $sql = "SELECT * FROM klant ORDER BY nummer";
+    $sql = "SELECT * FROM customers ORDER BY customerID";
     $result = mysqli_fetch_all(mysqli_query($connection, $sql),MYSQLI_ASSOC);
     return $result;
 }
