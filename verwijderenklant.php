@@ -6,25 +6,24 @@
 include __DIR__ . "/header.php";
 include 'klantfuncties.php';
 
-$gegevens["naam"] = isset($_POST["naam"]) ? $_POST["naam"] : "";
-$gegevens["woonplaats"] = isset($_POST["woonplaats"]) ? $_POST["woonplaats"] : "";
-$gegevens["nummer"] = isset($_POST["nummer"]) ? $_POST["nummer"] : "";
+$gegevens["CustomerName"] = isset($_GET["CustomerName"]) ? $_GET["CustomerName"] : "";
+$gegevens["CustomerID"] = isset($_GET["CustomerID"]) ? $_GET["CustomerID"] : "";
 
-if (isset($_POST["verwijderen"])) {
+if (isset($_GET["verwijderen"])) {
     $gegevens = klantGegevensVerwijderen($gegevens);
 }
 ?>
 <h1>Klant verwijderen</h1><br><br>
 
-<?php if($gegevens["naam"] !== "") {        //Hier wordt gecheckt of de naam bestaat (isset werkt niet)
+<?php if($gegevens["CustomerName"] !== "") {        //Hier wordt gecheckt of de naam bestaat (isset werkt niet)
     print '<h2>Wilt u ';
-    print($gegevens["naam"]);
+    print($gegevens["CustomerName"]);
     print ' verwijderen?</h2>';             //Hier wordt gevraagd of de bezoeker de klant wil verwijderen
 
-    print '<form method="POST" action="verwijderenklant.php">
+    print '<form method="get" action="verwijderenklant.php">
     <button type="submit" name="verwijderen" value="Verwijderen">Verwijderen</button>
-    <input type="hidden" name="nummer" value="';
-    print($gegevens["nummer"]);
+    <input type="hidden" name="CustomerID" value="';
+    print($gegevens["CustomerID"]);
     print '" />
     </form>';                               //Hier wordt de knop verwijderen geprint
 

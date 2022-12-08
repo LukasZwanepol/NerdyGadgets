@@ -5,20 +5,33 @@
 <?php
 include __DIR__ . "/header.php";
 include 'klantfuncties.php';
-if (isset($_POST["toevoegen"])) {
-    $gegevens["naam"] = isset($_POST["naam"]) ? $_POST["naam"] : "";
-    $gegevens["woonplaats"] = isset($_POST["woonplaats"]) ? $_POST["woonplaats"] : "";
+if (isset($_GET["toevoegen"])) {
+    $gegevens["CustomerName"] = isset($_GET["CustomerName"]) ? $_GET["CustomerName"] : "";
+    $gegevens["DeliveryAddressLine1"] = isset($_GET["DeliveryAddressLine1"]) ? $_GET["DeliveryAddressLine1"] : "";
+    $gegevens["DeliveryAddressLine2"] = isset($_GET["DeliveryAddressLine2"]) ? $_GET["DeliveryAddressLine2"] : "";
+    $gegevens["DeliveryPostalCode"] = isset($_GET["DeliveryPostalCode"]) ? $_GET["DeliveryPostalCode"] : "";
+    $gegevens["PostalAddressLine1"] = isset($_GET["PostalAddressLine1"]) ? $_GET["PostalAddressLine1"] : "";
+    $gegevens["PostalAddressLine2"] = isset($_GET["PostalAddressLine2"]) ? $_GET["PostalAddressLine2"] : "";
     $gegevens = klantGegevensToevoegen($gegevens);
 }
 ?>
 
-<h1>Klant toevoegen</h1><br><br>
-<form method="POST" action="toevoegenklant.php">
-    <label>Naam</label>
-    <input type="text" name="naam" value="<?php print($gegevens["naam"]); ?>" />
-    <label>Woonplaats</label>
-    <input type="text" name="woonplaats" value="<?php print($gegevens["woonplaats"]); ?>" />
-    <input type="submit" name="toevoegen" value="Toevoegen" />
+<h1>Klant toevoegen</h1><br>
+<form method="get" action="toevoegenklant.php">
+    <label>Customer Name</label>
+    <input type="text" name="CustomerName" value="<?php print($gegevens["CustomerName"]); ?>" />
+    <label>Delivery Address Line 1</label>
+    <input type="text" name="DeliveryAddressLine1" value="<?php print($gegevens["DeliveryAddressLine1"]); ?>" />
+    <label>Delivery Address Line 2</label>
+    <input type="text" name="DeliveryAddressLine2" value="<?php print($gegevens["DeliveryAddressLine2"]); ?>" />
+    <label>Delivery Postal Code</label>
+    <input type="text" name="DeliveryPostalCode" value="<?php print($gegevens["DeliveryPostalCode"]); ?>" />
+    <label>Postal Address Line 1</label>
+    <input type="text" name="PostalAddressLine1" value="<?php print($gegevens["PostalAddressLine1"]); ?>" />
+    <label>Postal Address Line 2</label>
+    <input type="text" name="PostalAddressLine2" value="<?php print($gegevens["PostalAddressLine2"]); ?>" />
+    <br><br>
+    <input type="submit" name="toevoegen" value="Toevoegen"/>
 </form>
 <br><?php print($gegevens["melding"]); ?><br>
 <a href="bekijkenoverzicht.php">Terug naar het overzicht</a>

@@ -79,6 +79,36 @@ function getStockItem($id, $databaseConnection) {
 
     return $Result;
 }
+// remove items from stock function
+function removeStockItemAmount($id, $amount, $databaseConnection) {
+    // get all the items from database
+    $Query = "
+                SELECT SI.StockItemID, QuantityOnHand
+                FROM stockitems SI 
+                JOIN stockitemholdings SIH USING(stockitemid)
+                WHERE StockItemID = ?";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, "i", $id);
+    mysqli_stmt_execute($Statement);
+    $R = mysqli_stmt_get_result($Statement);
+    $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+    // loop trough every item and remove amount thats in cart
+    foreach($R as $item) {
+        $result = $item['QuantityOnHand'] - $amount;
+
+        $Querys = "
+                UPDATE stockitemholdings 
+                SET QuantityOnHand=$result 
+                WHERE StockItemID = ?";
+
+        $Statements = mysqli_prepare($databaseConnection, $Querys);
+        mysqli_stmt_bind_param($Statements, "i", $id);
+        mysqli_stmt_execute($Statements);
+        $Rs = mysqli_stmt_get_result($Statements);
+    };
+    return $R;
+}
 
 function getStockItemImage($id, $databaseConnection) {
 
@@ -96,17 +126,8 @@ function getStockItemImage($id, $databaseConnection) {
     return $R;
 }
 
-function maakVerbinding() {
-    $host = 'localhost';
-    $user = 'root';
-    $pass = '';
-    $databasename = "Klantenservice";
-    $connection = mysqli_connect($host, $user, $pass, $databasename);
-    return $connection;
-}
-
 function selecteerKlanten($connection) {
-    $sql = "SELECT * FROM klant ORDER BY nummer";
+    $sql = "SELECT * FROM customers ORDER BY customerID";
     $result = mysqli_fetch_all(mysqli_query($connection, $sql),MYSQLI_ASSOC);
     return $result;
 }

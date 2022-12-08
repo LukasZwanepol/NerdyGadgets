@@ -9,18 +9,10 @@
         ?>
         <h1>Klanten overzicht</h1>
         <br>
-        <p><a href="toevoegenklant.php">Nieuwe klant toevoegen</a></p>
+        <p><a href="toevoegenklant.php">Klant toevoegen</a></p>
         <table>
-            <thead >
-                <tr>
-                    <th>Nr</th>
-                    <th>Voornaam</th>
-                    <th>Achternaam</th>
-                    <th>Straatnaam</th>
-                    <th>Huisnr</th>
-                    <th>Postcode</th>
-                    <th>Woonplaats</th>
-                </tr>
+            <thead>
+                <tr><th>Nr</th><th>Naam</th><th></th><th>Adres</th><th>Postcode</th><th></th><th>Woonplaats</th></tr>
             </thead>
             <tbody>
                 <?php toonKlantenOpHetScherm($klanten); ?>
