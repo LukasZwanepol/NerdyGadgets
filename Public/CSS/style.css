@@ -512,3 +512,30 @@ li:hover{
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
 }
+
+#popup-window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: black;
+    padding: 20px;
+    border: 1px solid white;
+    box-shadow: 8px 8px 8px #000000;
+}
+#popup-window button {
+    background-size: cover;
+    border: none;
+    cursor: pointer;
+    color: white;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+#popup-window img {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    height: auto;
+}
