@@ -112,15 +112,18 @@
                             // count total value of shopping cart items
                             $total += $amount * $Items['SellPrice'];
                         }
-
+                        $cartItem = getStockItem($key, $databaseConnection);
+                        $verzendkosten = ($cartItem['SendCosts']);
                     ?>
                 </form>
             </div>
-            <div class="col-6"></div>
-            <!-- display total value of cart -->
-            <div class="col-4 mx-4 mb-4 border rounded">
-                <h4 > Prijs : <?php $totalShoppingValue += $total; print(round($totalShoppingValue, 2));?> </h4>
+            <div class="col-4"></div>
+            <!-- display sendCosts of cart -->
+            <div class="col-6 mx-4 mb-4 border rounded">
+                <h4 > Verzendkosten : <p class="text-right"> <?php print(round($verzendkosten, 2));?></p> </h4>
+                <h4 > Totaal : <p class="text-right"> <?php $totalShoppingValue += $total; print(round($totalShoppingValue, 2) + $verzendkosten);?> </p></h4>
             </div>
+            <!-- display total value of cart -->
             <div class="col-10"></div>
             <div class="form-group">
                 <form method="post">
