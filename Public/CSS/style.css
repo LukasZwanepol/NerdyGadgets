@@ -519,23 +519,42 @@ li:hover{
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    background-color: black;
+    background-color: rgb(35, 35, 47);
     padding: 20px;
-    border: 1px solid white;
+    border: 1px solid rgb(42, 45, 139);
     box-shadow: 8px 8px 8px #000000;
+    border-radius: 10px;
 }
 #popup-window button {
-    background-size: cover;
-    border: none;
-    cursor: pointer;
-    color: white;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
+    background-color: #676EFF;
+    font-size: large;
+    border-radius: 12px;
+    width: 40px;
+    height: 40px;
+    border: 1px rgba(35, 40, 47, 0.8);
+    margin-left: 80%;
 }
 #popup-window img {
     display: block;
     margin: 0 auto;
     width: 50%;
     height: auto;
+}
+
+#popup-window p {
+    position: absolute;
+    top: 350px;
+    right: 0px;
+    bottom: 20px;
+    left: 20px;
+    text-align: center;
+}
+
+#popup-window h1{
+    position: absolute;
+    top: 200px;
+    right: 400px;
+    bottom: 20px;
+    left: 0px;
+    text-align: center;
 }
