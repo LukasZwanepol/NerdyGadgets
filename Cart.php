@@ -13,6 +13,7 @@ $StockGroups = getStockGroups($databaseConnection);
         <?php
         $cart = getCart();
         $totalShoppingValue = 0;
+        $cartItemsss = [];
 
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['increaseItem'])) {
             increaseAmountOfCart($_POST['increaseItem']);
@@ -26,8 +27,10 @@ $StockGroups = getStockGroups($databaseConnection);
             deleteCartItem($_POST['deleteItem']);
             print '<meta http-equiv="refresh" content="0">';
         }
+        $aantalArtikelen = null;
         // loop trough every item in cart
         foreach ($cart as $key => $StockItem) {
+            $aantalArtikelen++;
             $cartItem = getStockItem($key, $databaseConnection);
             $id = $cartItem["StockItemID"];
             $StockItemImage = getStockItemImage($id, $databaseConnection);
@@ -83,9 +86,9 @@ $StockGroups = getStockGroups($databaseConnection);
                         <div id="ImageFrame"
                              style="background-image: url('Public/StockGroupIMG/<?php print $cartItem['BackupImagePath']; ?>'); background-size: cover; width:300px;"></div>
                         <?php
-                    }
+                    };
                     ?>
-                    <h1 class="StockItemName" ; style=font-size:160%>
+                    <h1 class="StockItemName" style=font-size:160%>
                         <?php print $cartItem['StockItemName']; ?>
                     </h1>
                     <h2 class="StockItemIDa"
@@ -127,12 +130,6 @@ $StockGroups = getStockGroups($databaseConnection);
                         </div>
                     </form>
                     <div>
-                        <p>
-                            <?php
-                            $verzendkosten = ($cartItem['SendCosts']);
-                            print round($verzendkosten, 2);
-                            ?>
-                        </p>
                         <p> Subtotaal: <?php
                             $total = $orderAmount * $cartItem['SellPrice'];
                             print round($total, 2); ?>
@@ -140,11 +137,17 @@ $StockGroups = getStockGroups($databaseConnection);
                     </div>
                 </div>
             </div>
+
             <?php
             $totalShoppingValue += $total;
         };
+        if ( $aantalArtikelen > 0) {
             $verzendkosten = $cartItem['SendCosts'];
-        ?>
+        } else {
+            $verzendkosten = 0;
+        }
+            ?>
+
         <p style="margin-top: 2%; margin-left: 85%;"><a>Verzendkosten: <?php print (round($verzendkosten, 2)); ?></a></p>
         <p style="margin-top: 2%; margin-left: 85%;"><a>Totaal: <?php print (round($totalShoppingValue , 2) + $verzendkosten ); ?></a></p>
         <p style="margin-top: -5%; margin-bottom: 5%;"><a href='view.php?id=<?php $rand = (rand(1, 200));
@@ -159,6 +162,5 @@ $StockGroups = getStockGroups($databaseConnection);
         ?>
 
     </div>
-
 </div>
 
