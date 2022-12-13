@@ -166,9 +166,9 @@ ul#ul-class-navigation li {
 }
 
 #ImageFrame {
-    min-width: 75px;
-    max-width: 300px;
-    height: 300px;
+    min-width: 230px;
+    max-width: 230px;
+    height: 230px;
     background-color: rgb(36, 41, 143);
     float: left;
     margin-right: 10px;

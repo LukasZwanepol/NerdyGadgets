@@ -53,6 +53,8 @@ $databaseConnection = connectToDatabase();
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
+                            <a href="admin.php" class="nav-item nav-link" id="winkelwagen">Admin</a>
+                        <li class="nav-item">
                             <a href="BekijkenOverzicht.php" class="nav-item nav-link" id="klanten">Klantoverzicht</a>
                         </li>
                         <li class="nav-item">
