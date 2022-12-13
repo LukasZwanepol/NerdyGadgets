@@ -28,7 +28,7 @@ $StockGroups = getStockGroups($databaseConnection);
                 if (count($StockItemImage) == 1) {
                     ?>
                     <div id="ImageFrame"
-                         style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
+                         style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 230px; background-repeat: no-repeat; background-position: center;"></div>
                     <?php
                 } else if (count($StockItemImage) >= 2) { ?>
                     <!-- meerdere plaatjes laten zien -->
@@ -78,17 +78,17 @@ $StockGroups = getStockGroups($databaseConnection);
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $StockItem['StockItemName']; ?>
             </h2>
-            <div class="QuantityText">Voorraad: <?php print $StockItem['QuantityOnHand']; ?></div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
                     <div class="CenterPriceLeftChild">
-                        <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b></p>
+                        <p class="StockItemPriceText" style="margin-bottom: -2px;"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b></p>
                         <h6> Inclusief BTW </h6>
+                        <h7 style="color: red"> <?php  if (isset($_POST['submit'])) { print (rand(18,21)) ;}else {print (rand(6,12));}?> personen hebben dit in hun winkelmandje liggen! </h7>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div style="margin-left: 920px;">Voorraad: <?php print $StockItem['QuantityOnHand']; ?></div>
         <div id="StockItemDescription">
             <h3>Artikel beschrijving</h3>
             <p><?php print $StockItem['SearchDetails']; ?></p>
@@ -145,15 +145,15 @@ $StockGroups = getStockGroups($databaseConnection);
         $stockItemID = 0;
     }
     ?>
-    <div class="col-12">
-        <h1>Product <?php print($stockItemID) ?></h1>
+    <div class="col-5">
+        <h3>Product <?php print($stockItemID) ?></h3>
     </div>
     <!-- formulier via POST en niet GET om te zorgen dat refresh van pagina niet het artikel onbedoeld toevoegt-->
     <div class="col-2"></div>
-    <div class="col-8">
+    <div class="col-3">
         <form method="post" id="addToCart">
             <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
-            <input type="submit" name="submit" value="Voeg toe aan winkelmandje">
+            <input style="size: 20%" type="submit" name="submit" value="Voeg toe aan winkelmandje">
         </form>
     <?php
     if (isset($_POST["submit"])) {              // zelfafhandelend formulier

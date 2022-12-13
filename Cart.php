@@ -91,7 +91,7 @@ $StockGroups = getStockGroups($databaseConnection);
                     <h2 class="StockItemIDa"
                         style="font-size:80%; margin-top:2%"> <?php print ("Artikelnummer: $id"); ?>
                     </h2>
-                    <div style="margin-top: 5%;">Vooraat: <?php print $cartItem['QuantityOnHand']; ?></div>
+                    <div style="margin-top: 5%;">Voorraad: <?php print $cartItem['QuantityOnHand']; ?></div>
                     <div id="StockItemHeaderLeft">
                         <div class="CenterPriceLeft">
                             <div class="CenterPriceLeftChild">
@@ -127,6 +127,12 @@ $StockGroups = getStockGroups($databaseConnection);
                         </div>
                     </form>
                     <div>
+                        <p>
+                            <?php
+                            $verzendkosten = ($cartItem['SendCosts']);
+                            print round($verzendkosten, 2);
+                            ?>
+                        </p>
                         <p> Subtotaal: <?php
                             $total = $orderAmount * $cartItem['SellPrice'];
                             print round($total, 2); ?>
@@ -137,8 +143,10 @@ $StockGroups = getStockGroups($databaseConnection);
             <?php
             $totalShoppingValue += $total;
         };
+            $verzendkosten = $cartItem['SendCosts'];
         ?>
-        <p style="margin-top: 2%; margin-left: 85%;"><a>Totaal: <?php print(round($totalShoppingValue, 2)); ?></a></p>
+        <p style="margin-top: 2%; margin-left: 85%;"><a>Verzendkosten: <?php print (round($verzendkosten, 2)); ?></a></p>
+        <p style="margin-top: 2%; margin-left: 85%;"><a>Totaal: <?php print (round($totalShoppingValue , 2) + $verzendkosten ); ?></a></p>
         <p style="margin-top: -5%; margin-bottom: 5%;"><a href='view.php?id=<?php $rand = (rand(1, 200));
             if ($rand != NULL) {
                 print $rand;
@@ -151,5 +159,6 @@ $StockGroups = getStockGroups($databaseConnection);
         ?>
 
     </div>
+
 </div>
 
