@@ -132,6 +132,12 @@ function selecteerKlanten($connection) {
     return $result;
 }
 
+function selecteerKlantenVoorInlog($connection) {
+    $sql = "SELECT * FROM people ORDER BY personID";
+    $result = mysqli_fetch_all(mysqli_query($connection, $sql),MYSQLI_ASSOC);
+    return $result;
+}
+
 function sluitVerbinding($connection) {
     mysqli_close($connection);
 }

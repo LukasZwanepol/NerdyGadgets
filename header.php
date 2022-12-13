@@ -53,10 +53,16 @@ $databaseConnection = connectToDatabase();
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
+
+                            <a href="inlogPagina.php" class="nav-item nav-link" id="inlog">Inloggen</a>
+                            
+                        <li class="nav-item">
                             <a href="admin.php" class="nav-item nav-link" id="winkelwagen">Admin</a>
+                            
                         <li class="nav-item">
                             <a href="BekijkenOverzicht.php" class="nav-item nav-link" id="klanten">Klantoverzicht</a>
-                        </li>
+
+                        </li>-->
                         <li class="nav-item">
                             <a href="cart.php" class="nav-item nav-link" id="winkelwagen">Winkelwagen</a>
                         </li>
