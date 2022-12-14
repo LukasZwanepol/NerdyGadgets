@@ -62,7 +62,7 @@ $databaseConnection = connectToDatabase();
                         <li class="nav-item">
                             <a href="BekijkenOverzicht.php" class="nav-item nav-link" id="klanten">Klantoverzicht</a>
 
-                        </li>-->
+                        </li>
                         <li class="nav-item">
                             <a href="cart.php" class="nav-item nav-link" id="winkelwagen">Winkelwagen</a>
                         </li>
