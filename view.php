@@ -6,6 +6,7 @@ include "CartFuncties.php";
 $StockItem = getStockItem($_GET['id'], $databaseConnection);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 $StockGroups = getStockGroups($databaseConnection);
+$StockItemTemp = getStockTemp($databaseConnection);
 ?>
 <div id="CenteredContent">
     <?php
@@ -28,7 +29,7 @@ $StockGroups = getStockGroups($databaseConnection);
                 if (count($StockItemImage) == 1) {
                     ?>
                     <div id="ImageFrame"
-                         style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
+                         style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 230px; background-repeat: no-repeat; background-position: center;"></div>
                     <?php
                 } else if (count($StockItemImage) >= 2) { ?>
                     <!-- meerdere plaatjes laten zien -->
@@ -84,6 +85,14 @@ $StockGroups = getStockGroups($databaseConnection);
                         <p class="StockItemPriceText" style="margin-bottom: -2px;"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b></p>
                         <h6> Inclusief BTW </h6>
                         <h7 style="color: red"> <?php  if (isset($_POST['submit'])) { print (rand(18,21)) ;}else {print (rand(6,12));}?> personen hebben dit in hun winkelmandje liggen! </h7>
+                        <?php
+                        if($StockItem['IsChillerStock'] == 1){
+                            foreach($StockItemTemp as $temp){?>
+                            <h8> Magazijn temperatuur: </h8>
+                            <?PHP
+                                print($temp."˚C");
+                            }
+                        }?>
                     </div>
                 </div>
             </div>
