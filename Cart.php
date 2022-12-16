@@ -141,13 +141,14 @@ $StockGroups = getStockGroups($databaseConnection);
             <?php
             $totalShoppingValue += $total;
         };
-        if ( $aantalArtikelen > 0) {
+        if ( $aantalArtikelen > 0 && $totalShoppingValue < 60.00) {
             $verzendkosten = $cartItem['SendCosts'];
         } else {
             $verzendkosten = 0;
         }
             ?>
 
+        <p style="text-left"><p class="text-danger"<a>Bestellingen boven de 60 euro geen verzendkosten</a></p>
         <p style="margin-top: 2%; margin-left: 85%;"><a>Verzendkosten: <?php print (round($verzendkosten, 2)); ?></a></p>
         <p style="margin-top: 2%; margin-left: 85%;"><a>Totaal: <?php print (round($totalShoppingValue , 2) + $verzendkosten ); ?></a></p>
         <p style="margin-top: -5%; margin-bottom: 5%;"><a href='view.php?id=<?php $rand = (rand(1, 200));

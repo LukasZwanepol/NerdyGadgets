@@ -113,7 +113,11 @@
                             $total += $amount * $Items['SellPrice'];
                         }
                         $cartItem = getStockItem($key, $databaseConnection);
-                        $verzendkosten = ($cartItem['SendCosts']);
+                        if ($total > 60.00){
+                            $verzendkosten = 0;
+                        } else {
+                            $verzendkosten = ($cartItem['SendCosts']);
+                        }
                     ?>
                 </form>
             </div>
