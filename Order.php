@@ -1,11 +1,12 @@
 <?php
-    include "cartfuncties.php";
-    include "orderFuncties.php";
-    include __DIR__ . "/header.php";
-    $StockGroups = getStockGroups($databaseConnection);
-    $cart = getCart();
-    $totalShoppingValue = 0;
-    $total = 0;
+include "cartfuncties.php";
+include "orderFuncties.php";
+include __DIR__ . "/header.php";
+$StockGroups = getStockGroups($databaseConnection);
+$cart = getCart();
+$korting = getKorting();
+$totalShoppingValue = 0;
+$total = 0;
 ?>
 <div class="container">
     <div class="row justify-content-center">
@@ -16,19 +17,27 @@
                 <div class="form-group">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Naam</span>
-                        <p type="text" class="form-control"><?php if (isset($_POST["Voornaam"])) {print ($_POST["Voornaam"]." ".$_POST["Achternaam"]);} ?></p>
+                        <p type="text" class="form-control"><?php if (isset($_POST["Voornaam"])) {
+                                print ($_POST["Voornaam"] . " " . $_POST["Achternaam"]);
+                            } ?></p>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Adres</span>
-                        <p type="text" class="form-control"><?php if (isset($_POST["Adres"])) {print ($_POST["Adres"]. " ".$_POST["Nummer"]);} ?></p>
+                        <p type="text" class="form-control"><?php if (isset($_POST["Adres"])) {
+                                print ($_POST["Adres"] . " " . $_POST["Nummer"]);
+                            } ?></p>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Postcode</span>
-                        <p type="text" class="form-control"><?php if (isset($_POST["Postcode"])) {print ($_POST["Postcode"]);} ?></p>
+                        <p type="text" class="form-control"><?php if (isset($_POST["Postcode"])) {
+                                print ($_POST["Postcode"]);
+                            } ?></p>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Woonplaats</span>
-                        <p type="text" class="form-control"><?php if (isset($_POST["Woonplaats"])) {print ($_POST["Woonplaats"]);} ?></p>
+                        <p type="text" class="form-control"><?php if (isset($_POST["Woonplaats"])) {
+                                print ($_POST["Woonplaats"]);
+                            } ?></p>
                     </div>
                 </div>
             </form>
@@ -48,7 +57,8 @@
                         <!dropdown menu met ideal en credit card ofzo>
                     </div>
                     <div class="form-group d-flex justify-content-end px-4">
-                        <a href="https://www.ideal.nl/demo/qr/?app=ideal" class="button form-control w-25 h-100" type="submit">Bestellen</a>
+                        <a href="https://www.ideal.nl/demo/qr/?app=ideal" class="button form-control w-25 h-100"
+                           type="submit">Bestellen</a>
                     </div>
                 </div>
             </form>
@@ -57,7 +67,7 @@
     <!-- Overview of your products -->
     <div class="orderProduct m-4 rounded border">
 
-    <div class="row">
+        <div class="row">
             <div class="col-12 text-center pt-3"><h2>Bestelling</h2></div>
             <div class="col-1"></div>
             <div class="col-10">
@@ -68,64 +78,81 @@
                 <form>
                     <!-- loop through each item in cart -->
                     <?php
-                        foreach($cart as $key => $amount){
-                            $Items = getStockItem($key, $databaseConnection);
-                    ?>
-                    <div class="form-group row">
-                        <div class="form-group">
-                            <?php
-                            // check if item has image
-                            if (isset($StockItemImage)) {
-                                // één plaatje laten zien
-                                if (count($StockItemImage) == 1) {
+                    foreach ($cart as $key => $amount) {
+                        $Items = getStockItem($key, $databaseConnection);
+                        ?>
+                        <div class="form-group row">
+                            <div class="form-group">
+                                <?php
+                                // check if item has image
+                                if (isset($StockItemImage)) {
+                                    // één plaatje laten zien
+                                    if (count($StockItemImage) == 1) {
+                                        ?>
+                                        <div id="ImageFrame" class="form-control h-100"
+                                             style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-repeat: no-repeat; background-position: center;"></div>
+                                        <?php
+                                    }
+                                } else {
                                     ?>
-                                    <div id="ImageFrame" class="form-control h-100" style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-repeat: no-repeat; background-position: center;"></div>
+                                    <div id="ImageFrame" class="form-control h-100"
+                                         style="background-image: url('Public/StockGroupIMG/<?php print $Items['BackupImagePath']; ?>'); background-size: cover;"></div>
                                     <?php
                                 }
-                            } else {
                                 ?>
-                                <div id="ImageFrame" class="form-control h-100"
-                                    style="background-image: url('Public/StockGroupIMG/<?php print $Items['BackupImagePath']; ?>'); background-size: cover;"></div>
-                                <?php
-                            }
-                            ?>
+                            </div>
+                            <div class="form-group w-25 ">
+                                <label class="form-control h-100"><?php print($Items['StockItemName']) ?></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control h-100 align-middle text-center">Aantal
+                                    : <?php print($amount) ?></label>
+                            </div>
+                            <div class="form-group">
+                                <button class="form-control h-100">Verwijder</button>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control h-100"><?php print(round($Items['SellPrice'], 2)) ?></label>
+                            </div>
                         </div>
-                        <div class="form-group w-25 ">
-                            <label class="form-control h-100"><?php print($Items['StockItemName'])?></label>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control h-100 align-middle text-center">Aantal : <?php print($amount) ?></label>
-                        </div>
-                        <div class="form-group">
-                            <button class="form-control h-100">Verwijder</button>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control h-100"><?php print(round($Items['SellPrice'], 2))?></label>
-                        </div>
-                    </div>
-                    <!-- on press button remove amount from stock -->
-                    <?php
-                            if ($_SERVER['REQUEST_METHOD'] == "POST") {
-                                removeStockItemAmount($key, $amount, $databaseConnection);
-                               // print '<meta http-equiv="refresh" content="0">';
-                            }
-                            // count total value of shopping cart items
-                            $total += $amount * $Items['SellPrice'];
+                        <!-- on press button remove amount from stock -->
+                        <?php
+                        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                            removeStockItemAmount($key, $amount, $databaseConnection);
+                            // print '<meta http-equiv="refresh" content="0">';
                         }
-                        $cartItem = getStockItem($key, $databaseConnection);
-                        if ($total > 60.00){
-                            $verzendkosten = 0;
-                        } else {
-                            $verzendkosten = ($cartItem['SendCosts']);
-                        }
+                        // count total value of shopping cart items
+                        $total += $amount * $Items['SellPrice'];
+                    }
+                    $cartItem = getStockItem($key, $databaseConnection);
+                    if ($total > 60.00) {
+                        $verzendkosten = 0;
+                    } else {
+                        $verzendkosten = ($cartItem['SendCosts']);
+                    }
                     ?>
                 </form>
             </div>
             <div class="col-4"></div>
             <!-- display sendCosts of cart -->
             <div class="col-6 mx-4 mb-4 border rounded">
-                <h4 > Verzendkosten : <p class="text-right"> <?php print(round($verzendkosten, 2));?></p> </h4>
-                <h4 > Totaal : <p class="text-right"> <?php $totalShoppingValue += $total; print(round($totalShoppingValue, 2) + $verzendkosten);?> </p></h4>
+                <h4> Verzendkosten : <p class="text-right"> <?php print(round($verzendkosten, 2)); ?></p></h4>
+                <h4> Korting: <p class="text-right"> <?php
+                            $totalShoppingValue += $total;
+                            if ($korting) {
+                                foreach ($korting as $Kortingscode => $waarde) {
+                                    print(number_format(round((1 - $waarde) * $totalShoppingValue, 2), 2));
+                            }
+                        } else { print ("0.00");}
+                        ?></p></h4>
+                <h4> Totaal : <p class="text-right">
+                        <?php
+                            if ($korting) {
+                                foreach ($korting as $Kortingscode => $waarde) {
+                                    print(number_format(round($totalShoppingValue * $waarde, 2) + $verzendkosten, 2));
+                            }
+                        } else { print (number_format(round($totalShoppingValue, 2) + $verzendkosten, 2));}
+                        ?> </p></h4>
             </div>
             <!-- display total value of cart -->
             <div class="col-10"></div>
@@ -137,14 +164,14 @@
             <!-- ideal -->
             <?php
             $betaalSelected = false;
-            if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['Ideal'])){
+            if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['Ideal'])) {
                 echo '<script>console.log("Optie ingevuld!"); </script>';
                 $betaalSelected = true;
             }
-            if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['Bestellen'])){
+            if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['Bestellen'])) {
 
                 echo '<script>console.log("Bestellen ingedrukt"); </script>';
-                if (isset($_POST['BetaalOptie']) != "0"){
+                if (isset($_POST['BetaalOptie']) != "0") {
                     echo '<script>console.log("Optie ingevuld!"); </script>';
                 }
 

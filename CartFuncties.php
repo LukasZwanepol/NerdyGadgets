@@ -47,3 +47,44 @@ function decreaseAmountOfCart($id){
     }
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
+
+function getKorting()
+{
+    if (isset($_SESSION['Kortingscode'])) {               //controleren of winkelmandje (=cart) al bestaat
+        $korting = $_SESSION['Kortingscode'];                  //zo ja:  ophalen
+    } else {
+        $korting = array();                            //zo nee: dan een nieuwe (nog lege) array
+    }
+    return $korting;
+}
+
+function saveKorting($korting)
+{
+    $_SESSION["Kortingscode"] = $korting;
+}
+
+function addkorting($Kortingscode)
+{
+    $korting = getKorting();
+
+    if (array_key_exists($Kortingscode, $korting)) {
+        if ($Kortingscode == "KORTING") {
+            $korting[$Kortingscode] = 0.9;
+        }
+    }
+    if (!array_key_exists($Kortingscode, $korting)) {
+        if ($Kortingscode == "KORTING") {
+            $korting[$Kortingscode] = 0.9;
+        }
+    }
+
+    saveKorting($korting);
+}
+function deletekorting($Kortingscode){
+    $korting = getKorting();
+    foreach ($korting as $Kortingscode => $waarde) {
+        unset($korting[$Kortingscode]);
+    }
+    saveKorting($korting);
+
+}

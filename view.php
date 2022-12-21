@@ -84,7 +84,6 @@ $StockItemTemp = getStockTemp($databaseConnection);
                     <div class="CenterPriceLeftChild">
                         <p class="StockItemPriceText" style="margin-bottom: -2px;"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b></p>
                         <h6> Inclusief BTW </h6>
-                        <h7 style="color: red"> <?php  if (isset($_POST['submit'])) { print (rand(18,21)) ;}else {print (rand(6,12));}?> personen hebben dit in hun winkelmandje liggen! </h7>
                         <?php
                         if($StockItem['IsChillerStock'] == 1){
                             foreach($StockItemTemp as $temp){?>
