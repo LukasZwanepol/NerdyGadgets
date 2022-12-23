@@ -32,7 +32,7 @@ $totalShoppingValue = 0;
                     </div>
                     <div class="form-group row px-3">
                         <div class="w-25 bg-transparent"><h5>Postcode:</h5></div>
-                        <input class="form-control w-75" name="Postcode" required>
+                        <input class="form-control w-75" name="Postcode" pattern="[0-9]{4}[A-Z]{2}" required>
                     </div>
                     <div class="form-group row px-3">
                         <div class="w-25 bg-transparent"><h5>Woonplaats:</h5></div>
