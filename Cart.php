@@ -4,6 +4,8 @@ include "cartfuncties.php";
 include __DIR__ . "/header.php";
 $StockGroups = getStockGroups($databaseConnection);
 $ConversieMirre = getConv();
+$ConversieImre = getConvImre();
+
 ?>
 
 <div class="row">
@@ -16,7 +18,6 @@ $ConversieMirre = getConv();
         $korting = getKorting();
         $totalShoppingValue = 0;
         $cartItem =[];
-        $verzendkosten = 0;
 
         if (isset($_POST['DeleteKorting'])) {
             deletekorting($_POST['Kortingscode']);
@@ -41,8 +42,8 @@ $ConversieMirre = getConv();
         }
         $aantalArtikelen = null;
         // loop trough every item in cart
-        if($cart){
             foreach ($cart as $key => $StockItem) {
+                $aantalArtikelen++;
                 $cartItem = getStockItem($key, $databaseConnection);
                 $id = $cartItem["StockItemID"];
                 $StockItemImage = getStockItemImage($id, $databaseConnection);
@@ -142,12 +143,6 @@ $ConversieMirre = getConv();
                             </div>
                         </form>
                         <div>
-                            <p>
-                                <?php
-                                $verzendkosten = ($cartItem['SendCosts']);
-                                print round($verzendkosten, 2);
-                                ?>
-                            </p>
                             <p> Subtotaal: <?php
                                 $total = $orderAmount * $cartItem['SellPrice'];
                                 print round($total, 2); ?>
@@ -156,19 +151,29 @@ $ConversieMirre = getConv();
                     </div>
                 </div>
 
-                <?php
-                $totalShoppingValue += $total;
-        if ($aantalArtikelen > 0 && $totalShoppingValue < 60.00) {
-            $verzendkosten = $cartItem['SendCosts'];
-        }else {
+        <?php
+        $totalShoppingValue += $total;
+        };
+        // if ($_SESSION["loggedin"] == 1) {
+        //     $loggedIn = true;
+        // } else {
+        //     $loggedIn = false;
+        // } && $loggedIn && !$loggedIn
+    if ($ConversieImre) {
+        if ($aantalArtikelen > 0 && $totalShoppingValue > 60.00) {
             $verzendkosten = 0;
+        }else {
+            $verzendkosten = $cartItem['SendCosts'];
         }
-            ?>
-
+        } else{
+            $verzendkosten = $cartItem['SendCosts'];
+        }
+        ?>
                 <p style="text-left">
-                <p class="text-danger"<a><?php if ($aantalArtikelen > 0) {
+        <?php if ($ConversieImre) { ?>
+        <p class="text-danger"<a><?php if ($aantalArtikelen > 0) {
                         print ("Bestellingen boven de 60 euro geen verzendkosten!");
-                    } ?> </a></p>
+                    } ?> </a></p> <?php } ?>
                 <div class="container">
                     <div class="row">
                         <div class="col"></div>
@@ -200,6 +205,8 @@ $ConversieMirre = getConv();
                                         print ($_POST['Kortingscode']);
                                     }
 
+
+            }
 
             ?>">
                                 </div>
@@ -240,8 +247,7 @@ $ConversieMirre = getConv();
                     }
                     ?></a>
                 <?php
-            }
-            }
+
             ?>
 
         <div class="container">
