@@ -19,6 +19,8 @@ $StockItemTemp = getStockTemp($databaseConnection);
                 <?php print $StockItem['Video']; ?>
             </div>
         <?php }
+
+
         ?>
 
 
@@ -87,12 +89,13 @@ $StockItemTemp = getStockTemp($databaseConnection);
                         <h7 style="color: red"> <?php  if (isset($_POST['submit'])) { print (rand(18,21)) ;}else {print (rand(6,12));}?> personen hebben dit in hun winkelmandje liggen! </h7>
                         <?php
                         if($StockItem['IsChillerStock'] == 1){
-                            foreach($StockItemTemp as $temp){?>
-                            <h8> Magazijn temperatuur: </h8>
-                            <?PHP
-                                print($temp."˚C");
+                            $apiCall = file_get_contents('http://212.84.152.200:8080/insidetemp');
+                            $response = json_decode($apiCall, true);
+                            $temperature = $response['temperature'];
+                            print('Magazijn temperatuur: '.$temperature.'℃');
+
                             }
-                        }?>
+                        ?>
                     </div>
                 </div>
             </div>

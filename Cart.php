@@ -105,6 +105,7 @@ $StockGroups = getStockGroups($databaseConnection);
                 </div>
                 <div class="col-2 text-center">
                     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                        <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
                         <div>
                             <button style="background-color:#676EFF; border-radius: 12px; width: 30px; border: 1px rgba(35, 40, 47, 0.8); margin-top: 40px;"
                                     type="submit" name="increaseItem" value="<?php print($id) ?>">+
