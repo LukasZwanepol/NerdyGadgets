@@ -235,7 +235,7 @@ $ConversieImre = getConvImre();
                         </div>
                     </div>
                 </form>
-<?php           }} ?>
+<?php           } ?>
                 <a class=p-9 style="<?php error_reporting(E_ERROR | E_PARSE);
                 if (isset($korting["KORTING"])) {
                     print ("margin-left: 78%; color:green");
