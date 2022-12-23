@@ -7,10 +7,12 @@ $StockGroups = getStockGroups($databaseConnection);
 
 <div class="container">
     <div class="row justify-content-center">
-        <!-- show overview of user data -->
-        <div class="col-5 border rounded p-0 m-2">
-            <h4 class="text-center p-0 py-2 border bg-light text-dark">Admin</h4>
-            <form class="p-2" method="post">
+        <div class="card">
+            <div class="card-header">
+                Admin
+            </div>
+            <div class="card-body">
+                <button onclick=Mode()>Toggle mode</button>
                 <div class="form-group">
                     <div class="input-group mb-3">
                         <span class="input-group-text col-9" style="margin: 2px">Conversiemaatregel 1</span>
@@ -27,10 +29,9 @@ $StockGroups = getStockGroups($databaseConnection);
                         </div>
                     </div>
                 </div>
-
-            </form>
-            <input type="submit" value="Ik wil niet meer">
+            </div>
         </div>
+        <!-- show overview of user data -->
     </div>
 </div>
 
