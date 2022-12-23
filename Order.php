@@ -7,10 +7,16 @@
     $totalShoppingValue = 0;
     $total = 0;
 ?>
+<?php
+if(!isset($_POST["Voornaam"])){
+    header("Location: ./");
+    die();
+}else{
+?>
 <div class="container">
     <div class="row justify-content-center">
         <!-- show overview of user data -->
-        <div class="col-5 border rounded p-0 m-2">
+        <div class="orderForm col-5 border rounded p-0 m-2">
             <h4 class="text-center p-0 py-2 border bg-light text-dark">Persoonsgegevens </h4>
             <form class="p-2">
                 <div class="form-group">
@@ -34,7 +40,7 @@
             </form>
         </div>
         <!-- show payment details -->
-        <div class="col-5 border rounded m-2 p-0">
+        <div class="orderForm col-5 border rounded m-2 p-0">
             <h4 class="text-center p-0 py-2 border bg-light text-dark">Betalings gegevens </h4>
             <form method="post" class="p-2">
                 <div class="form-group">
@@ -55,31 +61,29 @@
         </div>
     </div>
     <!-- Overview of your products -->
-    <div class="orderProduct m-4 rounded border">
-
-    <div class="row">
-            <div class="col-12 text-center pt-3"><h2>Bestelling</h2></div>
-            <div class="col-1"></div>
-            <div class="col-10">
+    <div class="orderForm row mb-4">
+            <div class="col-12 text-center border rounded bg-light text-dark"><h2>Bestelling</h2></div>
+            <div class="col-2"></div>
+            <div class="col-8 py-4">
                 <h3 class="px-5">Producten: </h3>
             </div>
-            <div class="col-1"></div>
-            <div class="col-12 d-flex justify-content-center">
+            <div class="col-2"></div>
+            <div class="col-12 d-flex justify-content-center p-3">
                 <form>
                     <!-- loop through each item in cart -->
                     <?php
                         foreach($cart as $key => $amount){
                             $Items = getStockItem($key, $databaseConnection);
                     ?>
-                    <div class="form-group row">
-                        <div class="form-group">
+                    <div class="row formItems text-center align-middle">
+                        <div class="col-5 p-0">
                             <?php
                             // check if item has image
                             if (isset($StockItemImage)) {
                                 // één plaatje laten zien
                                 if (count($StockItemImage) == 1) {
                                     ?>
-                                    <div id="ImageFrame" class="form-control h-100" style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-repeat: no-repeat; background-position: center;"></div>
+                                    <div id="ImageFrame" class="form-control" style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-repeat: no-repeat; background-position: center;"></div>
                                     <?php
                                 }
                             } else {
@@ -90,24 +94,20 @@
                             }
                             ?>
                         </div>
-                        <div class="form-group w-25 ">
-                            <label class="form-control h-100"><?php print($Items['StockItemName'])?></label>
+                        <div class="col-3 p-0">
+                            <p class="form-control h-100"><?php print($Items['StockItemName'])?></p>
                         </div>
-                        <div class="form-group">
-                            <label class="form-control h-100 align-middle text-center">Aantal : <?php print($amount) ?></label>
+                        <div class="col-2 p-0">
+                            <label class="form-control h-100 align-self-center">Aantal : <?php print($amount) ?></label>
                         </div>
-                        <div class="form-group">
-                            <button class="form-control h-100">Verwijder</button>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control h-100"><?php print(round($Items['SellPrice'], 2))?></label>
+                        <div class="col-2 p-0">
+                            <label class="form-control h-100 align-self-center"><?php print(round($Items['SellPrice'], 2))?></label>
                         </div>
                     </div>
                     <!-- on press button remove amount from stock -->
                     <?php
                             if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 removeStockItemAmount($key, $amount, $databaseConnection);
-                               // print '<meta http-equiv="refresh" content="0">';
                             }
                             // count total value of shopping cart items
                             $total += $amount * $Items['SellPrice'];
@@ -149,3 +149,6 @@
         </div>
     </div>
 </div>
+<?php
+}
+?>
