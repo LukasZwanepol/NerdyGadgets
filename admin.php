@@ -1,7 +1,22 @@
 <?php
-include "cartfuncties.php";
+include "Cartfuncties.php";
 include __DIR__ . "/header.php";
 $StockGroups = getStockGroups($databaseConnection);
+$ConversieMirre = getConv();
+?>
+
+<?php
+If (isset($_POST['ConversieMirre'])) {
+    addConv($_POST['ConversieMirre']);
+    print '<meta http-equiv="refresh" content="0">';
+}
+
+If (isset($_POST['UndoConversieMirre'])) {
+    deleteConv($_POST['ConversieMirre']);
+    print '<meta http-equiv="refresh" content="0">';
+
+}
+
 ?>
 
 
@@ -16,8 +31,10 @@ $StockGroups = getStockGroups($databaseConnection);
                 <div class="form-group">
                     <div class="input-group mb-3">
                         <span class="input-group-text col-9" style="margin: 2px">Conversiemaatregel 1</span>
-                        <div class="col-2" style="alignment: right;">
-                            <input type="checkbox" name="Conversie1" <?php if (isset($_POST['Conversie1'])) { print ("Checked");} ?>>
+                            <form method="post" action="admin.php">
+                            <input type="submit" name="ConversieMirre" value="Conversie aan">
+                            <input type="submit" name="UndoConversieMirre"  value="Conversie uit">
+                            </form>
                         </div>
                             <span class="input-group-text col-9" style="margin: 2px" >Conversiemaatregel 2</span>
                             <div class="col-2" style="alignment: right;">
@@ -26,6 +43,7 @@ $StockGroups = getStockGroups($databaseConnection);
                         <span class="input-group-text col-9" style="margin: 2px" >Conversiemaatregel 3</span>
                         <div class="col-2" style="alignment: right;">
                             <input type="checkbox" name="Conversie3" <?php if (isset($_POST['Conversie3'])) { print ("Checked");} ?>>
+
                         </div>
                     </div>
                 </div>
