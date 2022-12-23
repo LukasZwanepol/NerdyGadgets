@@ -14,6 +14,12 @@ if(!isset($_POST["Voornaam"])){
     die();
 }else{
 ?>
+<?php
+if(!isset($_POST["Voornaam"])){
+    header("Location: ./");
+    die();
+}else{
+?>
 <div class="container">
     <div class="row justify-content-center">
         <!-- show overview of user data -->
