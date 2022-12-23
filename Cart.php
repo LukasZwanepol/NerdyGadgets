@@ -3,6 +3,7 @@
 include "cartfuncties.php";
 include __DIR__ . "/header.php";
 $StockGroups = getStockGroups($databaseConnection);
+$ConversieImre = getConvImre();
 ?>
 
 <div class="row">
@@ -39,7 +40,6 @@ $StockGroups = getStockGroups($databaseConnection);
         }
         $aantalArtikelen = null;
         // loop trough every item in cart
-        if($cart){
             foreach ($cart as $key => $StockItem) {
                 $aantalArtikelen++;
                 $cartItem = getStockItem($key, $databaseConnection);
@@ -152,23 +152,26 @@ $StockGroups = getStockGroups($databaseConnection);
         <?php
         $totalShoppingValue += $total;
         };
-        // if ($_SESSION["LogedIn"] == 1) {
+        // if ($_SESSION["loggedin"] == 1) {
         //     $loggedIn = true;
         // } else {
         //     $loggedIn = false;
         // } && $loggedIn && !$loggedIn
-
+    if ($ConversieImre) {
         if ($aantalArtikelen > 0 && $totalShoppingValue > 60.00) {
             $verzendkosten = 0;
-        }else{
+        }else {
             $verzendkosten = $cartItem['SendCosts'];
         }
+        } else{
+            $verzendkosten = $cartItem['SendCosts'];
         }
         ?>
                 <p style="text-left">
-                <p class="text-danger"<a><?php if ($aantalArtikelen > 0) {
+        <?php if ($ConversieImre) { ?>
+        <p class="text-danger"<a><?php if ($aantalArtikelen > 0) {
                         print ("Bestellingen boven de 60 euro geen verzendkosten!");
-                    } ?> </a></p>
+                    } ?> </a></p> <?php } ?>
                 <div class="container">
                     <div class="row">
                         <div class="col"></div>
