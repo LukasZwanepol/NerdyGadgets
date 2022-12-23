@@ -8,7 +8,9 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 $StockGroups = getStockGroups($databaseConnection);
 $StockItemTemp = getStockTemp($databaseConnection);
 ?>
-<div id="CenteredContent">
+<div class="content">
+
+<div id="CenteredContent" class="rounded p-3">
     <?php
     if ($StockItem != null) {
         ?>
@@ -24,14 +26,14 @@ $StockItemTemp = getStockTemp($databaseConnection);
         ?>
 
 
-        <div id="ArticleHeader">
+        <div id="ArticleHeader" class="p-3 row">
             <?php
             if (isset($StockItemImage)) {
                 // één plaatje laten zien
                 if (count($StockItemImage) == 1) {
                     ?>
                     <div id="ImageFrame"
-                         style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 300px; background-repeat: no-repeat; background-position: center;"></div>
+                         style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-size: 230px; background-repeat: no-repeat; background-position: center;"></div>
                     <?php
                 } else if (count($StockItemImage) >= 2) { ?>
                     <!-- meerdere plaatjes laten zien -->
@@ -74,6 +76,11 @@ $StockItemTemp = getStockTemp($databaseConnection);
                      style="background-image: url('Public/StockGroupIMG/<?php print $StockItem['BackupImagePath']; ?>'); background-size: cover;"></div>
                 <?php
             }
+            if (isset($_GET["id"])) {
+                $stockItemID = $_GET["id"];
+            } else {
+                $stockItemID = 0;
+            }
             ?>
 
 
@@ -83,10 +90,24 @@ $StockItemTemp = getStockTemp($databaseConnection);
             </h2>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
+                    <form method="post" id="addToCart" class="py-2">
+                        <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
+                        <input type="submit" name="submit" class="btn btn-primary" value="Voeg toe aan winkelmandje">
+                    </form>
+                    <!-- formulier via POST en niet GET om te zorgen dat refresh van pagina niet het artikel onbedoeld toevoegt-->
+                    <?php
+                        if (isset($_POST["submit"])) {              // zelfafhandelend formulier
+                            $stockItemID = $_POST["stockItemID"];
+                            addProductToCart($stockItemID);
+                    ?>
+                        <a href='cart.php'><button class="btn btn-primary" type="submit">Klik hier om naar de winkelwagen te gaan!</button></a>
+                    <?php  
+                        }
+                    ?>
+
                     <div class="CenterPriceLeftChild">
                         <p class="StockItemPriceText" style="margin-bottom: -2px;"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b></p>
                         <h6> Inclusief BTW </h6>
-                        <h7 style="color: red"> <?php  if (isset($_POST['submit'])) { print (rand(18,21)) ;}else {print (rand(6,12));}?> personen hebben dit in hun winkelmandje liggen! </h7>
                         <?php
                         if($StockItem['IsChillerStock'] == 1){
                             $apiCall = file_get_contents('http://212.84.152.200:8080/insidetemp');
@@ -100,80 +121,57 @@ $StockItemTemp = getStockTemp($databaseConnection);
                 </div>
             </div>
         </div>
-        <div style="margin-left: 920px;">Voorraad: <?php print $StockItem['QuantityOnHand']; ?></div>
-        <div id="StockItemDescription">
-            <h3>Artikel beschrijving</h3>
-            <p><?php print $StockItem['SearchDetails']; ?></p>
+        <div class="row p-5">
+            <div class="col-10"></div>
+            <div class="col-2">Voorraad: <?php print $StockItem['QuantityOnHand']; ?></div>
         </div>
-        <div id="StockItemSpecifications">
-            <h3>Artikel specificaties</h3>
-            <?php
-            $CustomFields = json_decode($StockItem['CustomFields'], true);
-            if (is_array($CustomFields)) { ?>
-                <table>
-                <thead>
-                <th>Naam</th>
-                <th>Data</th>
-                </thead>
+        <div class="row mb-3">
+            <div class="col-4" id="StockItemDescription">
+                <h3>Artikel beschrijving</h3>
+                <p><?php print $StockItem['SearchDetails']; ?></p>
+            </div>
+            <div class="col-6" id="StockItemSpecifications"> 
+                <h3>Artikel specificaties</h3>
                 <?php
-                foreach ($CustomFields as $SpecName => $SpecText) { ?>
-                    <tr>
-                        <td>
-                            <?php print $SpecName; ?>
-                        </td>
-                        <td>
-                            <?php
-                            if (is_array($SpecText)) {
-                                foreach ($SpecText as $SubText) {
-                                    print $SubText . " ";
+                $CustomFields = json_decode($StockItem['CustomFields'], true);
+                if (is_array($CustomFields)) { ?>
+                    <table>
+                    <thead>
+                    <th>Naam</th>
+                    <th>Data</th>
+                    </thead>
+                    <?php
+                    foreach ($CustomFields as $SpecName => $SpecText) { ?>
+                        <tr>
+                            <td>
+                                <?php print $SpecName; ?>
+                            </td>
+                            <td>
+                                <?php
+                                if (is_array($SpecText)) {
+                                    foreach ($SpecText as $SubText) {
+                                        print $SubText . " ";
+                                    }
+                                } else {
+                                    print $SpecText;
                                 }
-                            } else {
-                                print $SpecText;
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                <?php } ?>
-                </table><?php
-            } else { ?>
+                                ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                    </table><?php
+                } else { ?>
 
-                <p><?php print $StockItem['CustomFields']; ?>.</p>
-                <?php
-            }
-            ?>
+                    <p><?php print $StockItem['CustomFields']; ?>.</p>
+                    <?php
+                }
+                ?>
+            </div>
         </div>
+        
+       
         <?php
     } else {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
-</div>
-
-<div id="Wrap" class="row">
-    <?php
-    //?id=1 handmatig meegeven via de URL (gebeurt normaal gesproken als je via overzicht op artikelpagina terechtkomt)
-    if (isset($_GET["id"])) {
-        $stockItemID = $_GET["id"];
-    } else {
-        $stockItemID = 0;
-    }
-    ?>
-    <div class="col-5">
-        <h3>Product <?php print($stockItemID) ?></h3>
-    </div>
-    <!-- formulier via POST en niet GET om te zorgen dat refresh van pagina niet het artikel onbedoeld toevoegt-->
-    <div class="col-2"></div>
-    <div class="col-3">
-        <form method="post" id="addToCart">
-            <input type="number" name="stockItemID" value="<?php print($stockItemID) ?>" hidden>
-            <input style="size: 20%" type="submit" name="submit" value="Voeg toe aan winkelmandje">
-        </form>
-    <?php
-    if (isset($_POST["submit"])) {              // zelfafhandelend formulier
-        $stockItemID = $_POST["stockItemID"];
-        addProductToCart($stockItemID);?>
-        <a href='cart.php'><button class="addToCartButton">Klik hier om naar de winkelwagen te gaan!</button></a>
-    <?php  }  ?>
-    </div>
-    <div class="col-2"></div>
-
 </div>

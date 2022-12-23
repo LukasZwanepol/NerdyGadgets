@@ -47,3 +47,127 @@ function decreaseAmountOfCart($id){
     }
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
+
+function getKorting()
+{
+    if (isset($_SESSION['Kortingscode'])) {               //controleren of winkelmandje (=cart) al bestaat
+        $korting = $_SESSION['Kortingscode'];                  //zo ja:  ophalen
+    } else {
+        $korting = array();                            //zo nee: dan een nieuwe (nog lege) array
+    }
+    return $korting;
+}
+
+function saveKorting($korting)
+{
+    $_SESSION["Kortingscode"] = $korting;
+}
+
+function addkorting($Kortingscode)
+{
+    $korting = getKorting();
+
+    if (array_key_exists($Kortingscode, $korting)) {
+        if ($Kortingscode == "KORTING") {
+            $korting[$Kortingscode] = 0.9;
+        }
+    }
+    if (!array_key_exists($Kortingscode, $korting)) {
+        if ($Kortingscode == "KORTING") {
+            $korting[$Kortingscode] = 0.9;
+        }
+    }
+
+    saveKorting($korting);
+}
+function deletekorting($Kortingscode){
+    $korting = getKorting();
+    foreach ($korting as $Kortingscode => $waarde) {
+        unset($korting[$Kortingscode]);
+    }
+    saveKorting($korting);
+
+}
+function getConv()
+{
+    if (isset($_SESSION['ConversieMirre'])) {               //controleren of winkelmandje (=cart) al bestaat
+        $ConversieMirre = $_SESSION['ConversieMirre'];                  //zo ja:  ophalen
+    } else {
+        $ConversieMirre = array();                            //zo nee: dan een nieuwe (nog lege) array
+    }
+    return $ConversieMirre;
+}
+
+function saveConv($ConversieMirre)
+{
+    $_SESSION['ConversieMirre'] = $ConversieMirre;
+}
+
+function addConv($key)
+{
+    $ConversieMirre = getConv();
+
+    if (array_key_exists($key, $ConversieMirre)) {
+        if ($key) {
+            $ConversieMirre[$key] = 2;
+            print ("doet het");
+        }
+    }
+    if (!array_key_exists($key, $ConversieMirre)) {
+        if ($key) {
+            $ConversieMirre[$key] = 2;
+        }
+    }
+    saveConv($ConversieMirre);
+}
+
+function deleteConv($key){
+    $ConversieMirre = getConv();
+    foreach ($ConversieMirre as $key => $value) {
+        unset($ConversieMirre[$key]);
+    }
+    saveConv($ConversieMirre);
+
+}
+
+function getConvImre()
+{
+    if (isset($_SESSION['ConversieImre'])) {               //controleren of winkelmandje (=cart) al bestaat
+        $ConversieImre = $_SESSION['ConversieImre'];                  //zo ja:  ophalen
+    } else {
+        $ConversieImre = array();                            //zo nee: dan een nieuwe (nog lege) array
+    }
+    return $ConversieImre;
+}
+
+function saveConvImre($ConversieImre)
+{
+    $_SESSION['ConversieImre'] = $ConversieImre;
+}
+
+function addConvImre($key)
+{
+    $ConversieImre = getConvImre();
+
+    if (array_key_exists($key, $ConversieImre)) {
+        if ($key) {
+            $ConversieImre[$key] = 2;
+            print ("doet het");
+        }
+    }
+    if (!array_key_exists($key, $ConversieImre)) {
+        if ($key) {
+            $ConversieImre[$key] = 2;
+        }
+    }
+    saveConvImre($ConversieImre);
+}
+
+function deleteConvImre($key){
+    $ConversieImre= getConvImre();
+    foreach ($ConversieImre as $key => $value) {
+        unset($ConversieImre[$key]);
+    }
+    saveConvImre($ConversieImre);
+
+}

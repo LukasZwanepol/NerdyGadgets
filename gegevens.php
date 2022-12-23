@@ -12,8 +12,8 @@ $totalShoppingValue = 0;
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-7 bg-transparent rounded p-0 m-2">
-            <h1 class="text-left p-0 py-2 bg-transparent" style="color: #676EFF;">Persoonsgegevens:</h1>
+        <div class="col-7 rounded p-4 m-2" id="CheckoutData">
+            <h1 class="text-center p-0 py-2 bg-transparent" style="color: #676EFF;">Persoonsgegevens</h1>
             <form class="p-2" method="post" action="Order.php">
                 <br>
                 <div class="form-group">
@@ -32,7 +32,7 @@ $totalShoppingValue = 0;
                     </div>
                     <div class="form-group row px-3">
                         <div class="w-25 bg-transparent"><h5>Postcode:</h5></div>
-                        <input class="form-control w-75" name="Postcode" required>
+                        <input class="form-control w-75" name="Postcode" pattern="[0-9]{4}[A-Z]{2}" required>
                     </div>
                     <div class="form-group row px-3">
                         <div class="w-25 bg-transparent"><h5>Woonplaats:</h5></div>
