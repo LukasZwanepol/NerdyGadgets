@@ -136,16 +136,17 @@ function selecteerKlanten($connection) {
 function login ($connection, $email, $password){
 
     $passwordCheck = false;
-    print($password);
-
-    $query = mysqli_query("SELECT HashedPassword
+    $query = "  SELECT HashedPassword
                     FROM people
-                    WHERE LogonName = '$email'");
-    $result = mysqli_fetch_all(mysqli_query($connection, $query));
-    while ($row = mysqli_fetch_array($result)){
-        $passwordCheck = $row['HashedPassword'];
-    }
-    if ($password == $passwordCheck){
+                    WHERE LogonName = '$email'";
+    // $result = mysqli_fetch_all($connection, $query);
+
+    $Statement = mysqli_prepare($connection, $query);
+    mysqli_stmt_execute($Statement);
+    $R = mysqli_stmt_get_result($Statement);
+    $result = mysqli_fetch_all($R, MYSQLI_ASSOC);
+
+    if ($password == $result[0]['HashedPassword']){
         $result = mysqli_query("SELECT PersonID
                                             FROM people
                                             WHERE LogonName = '$email'");
