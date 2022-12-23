@@ -88,3 +88,44 @@ function deletekorting($Kortingscode){
     saveKorting($korting);
 
 }
+function getConv()
+{
+    if (isset($_SESSION['ConversieMirre'])) {               //controleren of winkelmandje (=cart) al bestaat
+        $ConversieMirre = $_SESSION['ConversieMirre'];                  //zo ja:  ophalen
+    } else {
+        $ConversieMirre = array();                            //zo nee: dan een nieuwe (nog lege) array
+    }
+    return $ConversieMirre;
+}
+
+function saveConv($ConversieMirre)
+{
+    $_SESSION['ConversieMirre'] = $ConversieMirre;
+}
+
+function addConv($key)
+{
+    $ConversieMirre = getConv();
+
+    if (array_key_exists($key, $ConversieMirre)) {
+        if ($key) {
+            $ConversieMirre[$key] = 2;
+            print ("doet het");
+        }
+    }
+    if (!array_key_exists($key, $ConversieMirre)) {
+        if ($key) {
+            $ConversieMirre[$key] = 2;
+        }
+    }
+    saveConv($ConversieMirre);
+}
+
+function deleteConv($key){
+    $ConversieMirre = getConv();
+    foreach ($ConversieMirre as $key => $value) {
+        unset($ConversieMirre[$key]);
+    }
+    saveConv($ConversieMirre);
+
+}
