@@ -12,6 +12,7 @@ If (isset($_POST['ConversieMirre'])) {
 }
 
 If (isset($_POST['UndoConversieMirre'])) {
+    error_reporting(E_ERROR | E_PARSE);
     deleteConv($_POST['ConversieMirre']);
     print '<meta http-equiv="refresh" content="0">';
 
@@ -34,6 +35,9 @@ If (isset($_POST['UndoConversieMirre'])) {
                             <form method="post" action="admin.php">
                             <input type="submit" name="ConversieMirre" value="Conversie aan">
                             <input type="submit" name="UndoConversieMirre"  value="Conversie uit">
+                                <?php if ($ConversieMirre) { print ("<h5>Conversie staat aan</h5>"); }
+                                else { print ("<h5>Conversie staat uit</h5>"); }
+                                ?>
                             </form>
                         </div>
                             <span class="input-group-text col-9" style="margin: 2px" >Conversiemaatregel 2</span>
