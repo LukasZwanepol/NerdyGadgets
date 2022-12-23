@@ -1,22 +1,29 @@
 <?php
 include __DIR__ . "/header.php";
-$StockGroups = getStockGroups($databaseConnection);
 ?>
 
 
 <body>
-    <div>
+    <div class="col-4">
         <h1>Inloggen</h1>
-        <form>
+        <form method="post">
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <label for="InputEmail1" class="form-label">Email address</label>
+                <input type="text" class="form-control" name="InputEmail" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <label for="exampleInputPassword1" class="form-label">Wachtwoord</label>
+                <input type="password" class="form-control" name="InputPassword">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="Inlog" class="btn btn-primary" name="Inlog">Log in</button>
         </form>
     </div>
 </body>
+<?php
+$connection = connectToDatabase();
+if (isset($_POST["Inlog"])) {
+        $email = $_POST["InputEmail"];
+        $password = hash("sha256" ,$_POST["InputPassword"]);
+        login($connection, $email, $password);
+    }
+?>
