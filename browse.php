@@ -260,7 +260,7 @@ if (isset($amount)) {
 
             <!-- einde coderegel 1 van User story: bekijken producten   -->
             <a href="view.php?id=<?php print $row["StockItemID"]?>">
-                <div id="ProductFrame">
+                <div class="ProductFrame p-3">
                     <?php
                     if (isset($row['ImagePath'])) { ?>
                         <div class="ImgFrame"
@@ -270,7 +270,7 @@ if (isset($amount)) {
                              style="background-image: url('<?php print "Public/StockGroupIMG/" . $row['BackupImagePath'] ?>'); background-size: cover;"></div>
                     <?php }
                     ?>
-                    <div id="StockItemFrameRight">
+                    <div class="p-3" id="StockItemFrameRight">
                         <div class="CenterPriceLeftChild">
                             <h1 class="StockItemPriceText"><?php print sprintf(" %0.2f", berekenVerkoopPrijs($row["RecommendedRetailPrice"], $row["TaxRate"])); ?></h1>
                             <h6>Inclusief BTW </h6>

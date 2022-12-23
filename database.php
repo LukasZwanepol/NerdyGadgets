@@ -58,8 +58,9 @@ function getStockItem($id, $databaseConnection) {
            SELECT SI.StockItemID, 
             (RecommendedRetailPrice*(1+(TaxRate/100))) AS SellPrice, 
             StockItemName,
-            CONCAT('Voorraad: ',QuantityOnHand)AS QuantityOnHand,
+            QuantityOnHand,
             SearchDetails, 
+            IsChillerStock, 
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
             (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
             FROM stockitems SI 
@@ -71,6 +72,21 @@ function getStockItem($id, $databaseConnection) {
 
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, "i", $id);
+    mysqli_stmt_execute($Statement);
+    $ReturnableResult = mysqli_stmt_get_result($Statement);
+    if ($ReturnableResult && mysqli_num_rows($ReturnableResult) == 1) {
+        $Result = mysqli_fetch_all($ReturnableResult, MYSQLI_ASSOC)[0];
+    }
+
+    return $Result;
+}
+
+function getStockTemp($databaseConnection) {
+    $Query = " 
+           SELECT round(avg(temperature),1)
+            FROM coldroomtemperatures";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_execute($Statement);
     $ReturnableResult = mysqli_stmt_get_result($Statement);
     if ($ReturnableResult && mysqli_num_rows($ReturnableResult) == 1) {
@@ -132,6 +148,59 @@ function selecteerKlanten($connection) {
     return $result;
 }
 
+
+function login ($connection, $email, $password){
+
+    $passwordCheck = false;
+    $query = "  SELECT HashedPassword
+                    FROM people
+                    WHERE LogonName = '$email'";
+    // $result = mysqli_fetch_all($connection, $query);
+
+    $Statement = mysqli_prepare($connection, $query);
+    mysqli_stmt_execute($Statement);
+    $R = mysqli_stmt_get_result($Statement);
+    $result = mysqli_fetch_all($R, MYSQLI_ASSOC);
+
+    if ($password == $result[0]['HashedPassword']){
+        $result = mysqli_query("SELECT PersonID
+                                            FROM people
+                                            WHERE LogonName = '$email'");
+        while($row = mysqli_fetch_array($result));{
+            $id = $row['PersonID'];
+        }
+        $_SESSION["loggedin"] = true;
+        $_SESSION["userid"] = $id;
+        $_SESSION["mail"] = $email;
+        print("Gelukt!");
+    } else {
+        print("niet goede combo");
+    }
+}
+
+
+function aanmelden($connection, $email, $password_1, $password_2)
+{
+    //controleren of email al in gebruik is
+    $mailcheck = FALSE;
+
+    $result = mysqli_query($connection, "SELECT LogonName FROM people WHERE LogonName = '$email'LIMIT 1");
+    while ($row = mysqli_fetch_array($result)) {
+        $mailcheck = $row['LogonName'];
+    }
+
+    if ($email == $mailcheck) {
+        print "<h5 style='text-align:center;color:darkred'>Dit mail adres is al in gebruik!</h5>";
+    } elseif ($password_1 == $password_2) {
+        $statement = mysqli_prepare($connection, "INSERT INTO people (LogonName, HashedPassword, FullName, IsPermittedToLogon) VALUES('$email','$password_1', 'test', 1);");
+        mysqli_stmt_execute($statement);
+        print "<h5 style='text-align:center;color:darkgreen'>Account aangemaakt!</h5>";
+        mysqli_stmt_affected_rows($statement) == 1;
+        echo "<script>window.location = 'index.php';</script>";
+    } else {
+        print "<h5 style='text-align:center;color:darkred'>Uw wachtwoorden komen niet overeen!</h5>";
+    }
+}
 function sluitVerbinding($connection) {
     mysqli_close($connection);
 }
