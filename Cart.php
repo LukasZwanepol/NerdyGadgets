@@ -15,7 +15,6 @@ $StockGroups = getStockGroups($databaseConnection);
         $korting = getKorting();
         $totalShoppingValue = 0;
         $cartItem =[];
-        $verzendkosten = 0;
 
         if (isset($_POST['DeleteKorting'])) {
             deletekorting($_POST['Kortingscode']);
@@ -42,6 +41,7 @@ $StockGroups = getStockGroups($databaseConnection);
         // loop trough every item in cart
         if($cart){
             foreach ($cart as $key => $StockItem) {
+                $aantalArtikelen++;
                 $cartItem = getStockItem($key, $databaseConnection);
                 $id = $cartItem["StockItemID"];
                 $StockItemImage = getStockItemImage($id, $databaseConnection);
@@ -141,12 +141,6 @@ $StockGroups = getStockGroups($databaseConnection);
                             </div>
                         </form>
                         <div>
-                            <p>
-                                <?php
-                                $verzendkosten = ($cartItem['SendCosts']);
-                                print round($verzendkosten, 2);
-                                ?>
-                            </p>
                             <p> Subtotaal: <?php
                                 $total = $orderAmount * $cartItem['SellPrice'];
                                 print round($total, 2); ?>
@@ -155,15 +149,22 @@ $StockGroups = getStockGroups($databaseConnection);
                     </div>
                 </div>
 
-                <?php
-                $totalShoppingValue += $total;
-        if ($aantalArtikelen > 0 && $totalShoppingValue < 60.00) {
-            $verzendkosten = $cartItem['SendCosts'];
-        }else {
-            $verzendkosten = 0;
-        }
-            ?>
+        <?php
+        $totalShoppingValue += $total;
+        };
+        // if ($_SESSION["LogedIn"] == 1) {
+        //     $loggedIn = true;
+        // } else {
+        //     $loggedIn = false;
+        // } && $loggedIn && !$loggedIn
 
+        if ($aantalArtikelen > 0 && $totalShoppingValue > 60.00) {
+            $verzendkosten = 0;
+        }else{
+            $verzendkosten = $cartItem['SendCosts'];
+        }
+        }
+        ?>
                 <p style="text-left">
                 <p class="text-danger"<a><?php if ($aantalArtikelen > 0) {
                         print ("Bestellingen boven de 60 euro geen verzendkosten!");
@@ -197,7 +198,7 @@ $StockGroups = getStockGroups($databaseConnection);
 
                                         print ($_POST['Kortingscode']);
                                     }
-            }
+
             }
             ?>">
                                 </div>
@@ -239,7 +240,7 @@ $StockGroups = getStockGroups($databaseConnection);
                     ?></a>
                 <?php
 
-            }
+
             ?>
 
         <div class="container">
