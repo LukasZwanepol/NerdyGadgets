@@ -3,6 +3,18 @@
 session_start();
 include "database.php";
 $databaseConnection = connectToDatabase();
+header("X-Frame-Options: DENY");
+if (isset($_POST['token'])){
+    $token = filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
+    //echo($token)."<br>".($_SESSION['token']);
+
+    if (!$token || $token !== $_SESSION['token']) {
+        // return 405 http status code
+        header($_SERVER['SERVER_PROTOCOL'] . ' 405 Method Not Allowed');
+        exit;
+    }
+}
+$_SESSION['token'] = md5(uniqid(mt_rand(), true));
 ?>
 <!DOCTYPE html>
 <html lang="en">
