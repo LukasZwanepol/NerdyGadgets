@@ -3,7 +3,9 @@
 include "cartfuncties.php";
 include __DIR__ . "/header.php";
 $StockGroups = getStockGroups($databaseConnection);
+$ConversieMirre = getConv();
 $ConversieImre = getConvImre();
+
 ?>
 
 <div class="row">
@@ -183,7 +185,8 @@ $ConversieImre = getConvImre();
                         </div>
                 </div>
             </div>
-            <?php if ($totalShoppingValue != 0) { ?>
+            <?php if ($totalShoppingValue != 0) {
+                if ($ConversieMirre) { ?>
                 <form method='post' action="Cart.php">
                     <div class='form-group row px-3'>
                         <div class="container">
@@ -202,7 +205,9 @@ $ConversieImre = getConvImre();
                                         print ($_POST['Kortingscode']);
                                     }
 
+
             }
+
             ?>">
                                 </div>
                             </div>
@@ -230,7 +235,7 @@ $ConversieImre = getConvImre();
                         </div>
                     </div>
                 </form>
-
+<?php           }} ?>
                 <a class=p-9 style="<?php error_reporting(E_ERROR | E_PARSE);
                 if (isset($korting["KORTING"])) {
                     print ("margin-left: 78%; color:green");
@@ -243,13 +248,13 @@ $ConversieImre = getConvImre();
                     ?></a>
                 <?php
 
-
             ?>
 
         <div class="container">
             <div class="row">
                 <div class="col-7"></div>
                 <div class="col">
+                    <?php if ($ConversieMirre) { ?>
                     <p style=" text-align: right;"><a>Korting: <?php
                             if ($korting) {
                                 foreach ($korting as $Kortingscode => $waarde) {
@@ -257,7 +262,7 @@ $ConversieImre = getConvImre();
                                 }
                             } else {
                                 print ("0.00");
-                            } ?></a></p>
+                            } ?></a></p> <?php }?>
                     <p style=" text-align: right;"><a>Totaal: <?php
                             error_reporting(E_ERROR | E_PARSE);
                             if (array_key_exists($Kortingscode, $korting)) {
