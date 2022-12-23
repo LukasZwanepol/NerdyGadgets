@@ -136,6 +136,8 @@ function selecteerKlanten($connection) {
 function login ($connection, $email, $password){
 
     $passwordCheck = false;
+    print($password);
+
     $query = mysqli_query("SELECT HashedPassword
                     FROM people
                     WHERE LogonName = '$email'");
@@ -167,17 +169,17 @@ function aanmelden($connection, $email, $password_1, $password_2)
 
     $result = mysqli_query($connection, "SELECT LogonName FROM people WHERE LogonName = '$email'LIMIT 1");
     while ($row = mysqli_fetch_array($result)) {
-        $mailcheck = $row['mail'];
+        $mailcheck = $row['LogonName'];
     }
 
     if ($email == $mailcheck) {
         print "<h5 style='text-align:center;color:darkred'>Dit mail adres is al in gebruik!</h5>";
     } elseif ($password_1 == $password_2) {
-        $statement = mysqli_prepare($connection, "INSERT INTO people (LogonName, HashedPassword, ValidFrom) VALUES('$email','$password_1',NOW());");
+        $statement = mysqli_prepare($connection, "INSERT INTO people (LogonName, HashedPassword, FullName, IsPermittedToLogon) VALUES('$email','$password_1', 'test', 1);");
         mysqli_stmt_execute($statement);
         print "<h5 style='text-align:center;color:darkgreen'>Account aangemaakt!</h5>";
         mysqli_stmt_affected_rows($statement) == 1;
-        echo "<script>window.location = 'register2.php';</script>";
+        echo "<script>window.location = 'index.php';</script>";
     } else {
         print "<h5 style='text-align:center;color:darkred'>Uw wachtwoorden komen niet overeen!</h5>";
     }
