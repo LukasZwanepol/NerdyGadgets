@@ -6,9 +6,11 @@ $ConversieMirre = getConv();
 ?>
 <div class="IndexStyle bg-dark">
     <div class="col-11">
+
 <?php if ($ConversieMirre) { print("
         <h1 style='background-color: #a71d2a; color: black; height: 110px; text-align: center'>Gebruik nu de kortingscode 'KORTING' voor 10% korting! <br> Log in om 20% korting te krijgen!</h1>
         ");} ?>
+
         <div class="TextPrice">
             <a href="view.php?id=93">
                 <div class="TextMain text-light">

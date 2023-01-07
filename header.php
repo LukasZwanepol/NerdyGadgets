@@ -61,9 +61,23 @@ $_SESSION['token'] = md5(uniqid(mt_rand(), true));
         </div>
         <div class="navbar-collapse collapse">
             <ul class="navbar-nav ml-auto">
+
+                <?php 
+                if($_SESSION["loggedin"] ){
+                ?>
+                    <li class="nav-item">
+                        <a href="inlogPagina.php" class="nav-item nav-link disabled" id="inlog">ingelogd</a>
+                    </li>
+                <?php
+                }else{
+                ?>
                 <li class="nav-item">
                     <a href="inlogPagina.php" class="nav-item nav-link" id="inlog">Inloggen</a>
                 </li>
+                <?php    
+                }
+                ?>
+
                 <li class="nav-item">
                     <a href="admin.php" class="nav-item nav-link" id="winkelwagen">Admin</a>
                 </li>

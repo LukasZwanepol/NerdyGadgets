@@ -155,7 +155,6 @@ function login ($connection, $email, $password){
     $query = "  SELECT HashedPassword
                     FROM people
                     WHERE LogonName = '$email'";
-    // $result = mysqli_fetch_all($connection, $query);
 
     $Statement = mysqli_prepare($connection, $query);
     mysqli_stmt_execute($Statement);
@@ -163,12 +162,16 @@ function login ($connection, $email, $password){
     $result = mysqli_fetch_all($R, MYSQLI_ASSOC);
 
     if ($password == $result[0]['HashedPassword']){
-        $result = mysqli_query("SELECT PersonID
-                                            FROM people
-                                            WHERE LogonName = '$email'");
-        while($row = mysqli_fetch_array($result));{
-            $id = $row['PersonID'];
-        }
+        $query = "SELECT PersonID
+                    FROM people
+                    WHERE LogonName = '$email'";
+
+        $Statement = mysqli_prepare($connection, $query);
+        mysqli_stmt_execute($Statement);
+        $R = mysqli_stmt_get_result($Statement);
+        $result = mysqli_fetch_all($R, MYSQLI_ASSOC);
+        
+        $id = $result[0]['PersonID'];
         $_SESSION["loggedin"] = true;
         $_SESSION["userid"] = $id;
         $_SESSION["mail"] = $email;

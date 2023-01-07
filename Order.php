@@ -94,11 +94,13 @@ if(!isset($_POST["Voornaam"])){
                                 if (count($StockItemImage) == 1) {
                                     ?>
                                     <div id="ImageFrame" class="form-control" style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-repeat: no-repeat; background-position: center;"></div>
+
                                     <?php
                                 } else {
                                     ?>
                                     <div id="ImageFrame" class="form-control h-100"
                                          style="background-image: url('Public/StockGroupIMG/<?php print $Items['BackupImagePath']; ?>'); background-size: cover;"></div>
+
                                     <?php
                                 }
                                 ?>

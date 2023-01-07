@@ -4,6 +4,7 @@ include __DIR__ . "/header.php";
 $StockGroups = getStockGroups($databaseConnection);
 $ConversieMirre = getConv();
 $ConversieImre = getConvImre();
+
 ?>
 
 <?php
@@ -31,6 +32,7 @@ If (isset($_POST['UndoConversieImre'])) {
 
 }
 
+
 ?>
 
 
@@ -49,10 +51,12 @@ If (isset($_POST['UndoConversieImre'])) {
                             <input type="submit" name="ConversieMirre" value="Conversie aan">
                             <input type="submit" name="UndoConversieMirre"  value="Conversie uit">
 
+
                                 <?php if ($ConversieMirre) { print ("<h5>Conversie staat aan</h5>"); }
                                 else { print ("<h5>Conversie staat uit</h5>"); }
                                 ?>
                             </form>
+
 
                         </div>
                             <span class="input-group-text col-9" style="margin: 2px" >Conversiemaatregel 2</span>
