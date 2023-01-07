@@ -55,10 +55,11 @@ If (isset($_POST['UndoConversieImre'])) {
                             </form>
 
                         </div>
+                    <form method="post" action="admin.php">
                             <span class="input-group-text col-9" style="margin: 2px" >Conversiemaatregel 2</span>
                     <input type="submit" name="ConversieImre" value="Conversie aan">
                     <input type="submit" name="UndoConversieImre"  value="Conversie uit">
-                    <?php if ($ConversieImre) { print (" <h5> Conversie staat aan </h5>"); } else {print (" <h5> Conversie staat uit </h5>");} ?>
+                    <?php if ($ConversieImre) { print (" <h5> Conversie staat aan </h5>"); } else { print (" <h5> Conversie staat uit </h5>");} ?>
 
 
                                 </form>

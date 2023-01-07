@@ -110,7 +110,6 @@ function addConv($key)
     if (array_key_exists($key, $ConversieMirre)) {
         if ($key) {
             $ConversieMirre[$key] = 2;
-            print ("doet het");
         }
     }
     if (!array_key_exists($key, $ConversieMirre)) {
@@ -152,7 +151,6 @@ function addConvImre($key)
     if (array_key_exists($key, $ConversieImre)) {
         if ($key) {
             $ConversieImre[$key] = 2;
-            print ("doet het");
         }
     }
     if (!array_key_exists($key, $ConversieImre)) {
