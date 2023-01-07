@@ -21,6 +21,8 @@ $StockItemTemp = getStockTemp($databaseConnection);
                 <?php print $StockItem['Video']; ?>
             </div>
         <?php }
+
+
         ?>
 
 
@@ -108,12 +110,15 @@ $StockItemTemp = getStockTemp($databaseConnection);
                         <h6> Inclusief BTW </h6>
                         <?php
                         if($StockItem['IsChillerStock'] == 1){
-                            foreach($StockItemTemp as $temp){?>
-                            <h8> Magazijn temperatuur: </h8>
-                            <?PHP
-                                print($temp."˚C");
+
+                            $apiCall = file_get_contents('http://212.84.152.200:8080/insidetemp');
+                            $response = json_decode($apiCall, true);
+                            $temperature = $response['temperature'];
+                            print('Magazijn temperatuur: '.$temperature.'℃');
+
                             }
-                        }?>
+                        ?>
+
                     </div>
                 </div>
             </div>

@@ -128,4 +128,48 @@ function deleteConv($key){
     }
     saveConv($ConversieMirre);
 
+
+}
+
+function getConvImre()
+{
+    if (isset($_SESSION['ConversieImre'])) {               //controleren of winkelmandje (=cart) al bestaat
+        $ConversieImre = $_SESSION['ConversieImre'];                  //zo ja:  ophalen
+    } else {
+        $ConversieImre = array();                            //zo nee: dan een nieuwe (nog lege) array
+    }
+    return $ConversieImre;
+}
+
+function saveConvImre($ConversieImre)
+{
+    $_SESSION['ConversieImre'] = $ConversieImre;
+}
+
+function addConvImre($key)
+{
+    $ConversieImre = getConvImre();
+
+    if (array_key_exists($key, $ConversieImre)) {
+        if ($key) {
+            $ConversieImre[$key] = 2;
+            print ("doet het");
+        }
+    }
+    if (!array_key_exists($key, $ConversieImre)) {
+        if ($key) {
+            $ConversieImre[$key] = 2;
+        }
+    }
+    saveConvImre($ConversieImre);
+}
+
+function deleteConvImre($key){
+    $ConversieImre= getConvImre();
+    foreach ($ConversieImre as $key => $value) {
+        unset($ConversieImre[$key]);
+    }
+    saveConvImre($ConversieImre);
+
+
 }
