@@ -40,7 +40,7 @@ if($_SESSION["loggedin"] ) {
     <div class="row justify-content-center">
         <div class="col-7 rounded p-4 m-2" id="CheckoutData">
             <h1 class="text-center p-0 py-2 bg-transparent" style="color: #676EFF;">Persoonsgegevens</h1>
-            <form class="p-2" method="post" action="gegevens.php">
+            <form class="p-2" method="post" action="Order.php">
                 <br>
                 <div class="form-group">
                     <div class="form-group row px-3">
