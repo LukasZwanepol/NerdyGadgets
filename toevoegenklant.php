@@ -6,37 +6,33 @@
 include __DIR__ . "/header.php";
 include 'klantfuncties.php';
 if (isset($_GET["toevoegen"])) {
-    $gegevens["CustomerName"] = isset($_GET["CustomerName"]) ? $_GET["CustomerName"] : "";
-    $gegevens["PhoneNumber"] = isset($_GET["PhoneNumber"]) ? $_GET["PhoneNumber"] : "";
-    $gegevens["PhoneNumber2"] = isset($_GET["PhoneNumber"]) ? $_GET["PhoneNumber"] : "";
-    $gegevens["DeliveryAddressLine1"] = isset($_GET["DeliveryAddressLine1"]) ? $_GET["DeliveryAddressLine1"] : "";
-    $gegevens["DeliveryAddressLine2"] = isset($_GET["DeliveryAddressLine2"]) ? $_GET["DeliveryAddressLine2"] : "";
-    $gegevens["DeliveryPostalCode"] = isset($_GET["DeliveryPostalCode"]) ? $_GET["DeliveryPostalCode"] : "";
-    $gegevens["PostalAddressLine1"] = isset($_GET["PostalAddressLine1"]) ? $_GET["PostalAddressLine1"] : "";
-    $gegevens["PostalAddressLine2"] = isset($_GET["PostalAddressLine2"]) ? $_GET["PostalAddressLine2"] : "";
-    $gegevens["PostalPostalCode"] = isset($_GET["PostalPostalCode"]) ? $_GET["PostalPostalCode"] : "";
+    $gegevens["CustomerName"] = $_GET["CustomerName"] ?? "";
+    $gegevens["PhoneNumber"] = $_GET["PhoneNumber"] ?? "";
+    $gegevens["PhoneNumber2"] = $_GET["PhoneNumber"] ?? "";
+    $gegevens["DeliveryAddressLine1"] = $_GET["DeliveryAddressLine1"] ?? "";
+    $gegevens["DeliveryAddressLine2"] = $_GET["DeliveryAddressLine2"] ?? "";
+    $gegevens["DeliveryPostalCode"] = $_GET["DeliveryPostalCode"] ?? "";
+    $gegevens["PostalAddressLine1"] = $_GET["DeliveryAddressLine2"] ?? "";
+    $gegevens["PostalAddressLine2"] = $_GET["PostalAddressLine2"] ?? "";
+    $gegevens["PostalPostalCode"] = $_GET["DeliveryPostalCode"] ?? "";
     $gegevens = klantGegevensToevoegen($gegevens);
 }
 ?>
 
 <h1>Klant toevoegen</h1><br>
 <form method="get" action="toevoegenklant.php">
-    <label>Customer Name</label>
+    <label>Klantnaam</label>
     <input type="text" name="CustomerName" value="<?php print($gegevens["CustomerName"]); ?>" />
-    <label>Phone Number</label>
+    <label>Telefoonnummer</label>
     <input type="text" name="PhoneNumber" value="<?php print($gegevens["PhoneNumber"]); ?>" />
-    <label>Delivery Address Line 1</label>
+    <label>Huisnummer</label>
     <input type="text" name="DeliveryAddressLine1" value="<?php print($gegevens["DeliveryAddressLine1"]); ?>" />
-    <label>Delivery Address Line 2</label>
+    <label>Adres</label>
     <input type="text" name="DeliveryAddressLine2" value="<?php print($gegevens["DeliveryAddressLine2"]); ?>" />
-    <label>Delivery Postal Code</label>
+    <label>Postcode</label>
     <input type="text" name="DeliveryPostalCode" value="<?php print($gegevens["DeliveryPostalCode"]); ?>" />
-    <label>Postal Address Line 1</label>
-    <input type="text" name="PostalAddressLine1" value="<?php print($gegevens["PostalAddressLine1"]); ?>" />
-    <label>Postal Address Line 2</label>
+    <label>Woonplaats</label>
     <input type="text" name="PostalAddressLine2" value="<?php print($gegevens["PostalAddressLine2"]); ?>" />
-    <label>Postal Postal Code</label>
-    <input type="text" name="PostalPostalCode" value="<?php print($gegevens["PostalPostalCode"]); ?>" />
     <br><br>
     <input type="submit" name="toevoegen" value="Toevoegen"/>
 </form>
