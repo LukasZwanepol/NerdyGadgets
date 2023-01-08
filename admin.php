@@ -42,32 +42,38 @@ If (isset($_POST['UndoConversieImre'])) {
             </div>
             <div class="card-body">
                 <button onclick=Mode()>Toggle mode</button>
+                <br>
+
+                <?php if ($ConversieMirre) { print ("<h5 style='color: #34ce57'>'Kortingscode' = aan</h5>"); }
+                else { print ("<h5 style='color: coral'>'Kortingscode' = uit</h5>"); }
+                ?>
+                <?php if ($ConversieImre) { print (" <h5 style='color: #34ce57'> 'Verzendkosten' = aan</h5>"); } else { print (" <h5 style='color: coral'> 'Verzendkosten' = uit</h5>");} ?>
+                <br>
                 <div class="form-group">
                     <div class="input-group mb-3">
-                        <span class="input-group-text col-9" style="margin: 2px">Conversiemaatregel 1</span>
-                            <form method="post" action="admin.php">
-                            <input type="submit" name="ConversieMirre" value="Conversie aan">
-                            <input type="submit" name="UndoConversieMirre"  value="Conversie uit">
-
-                                <?php if ($ConversieMirre) { print ("<h5>Conversie staat aan</h5>"); }
-                                else { print ("<h5>Conversie staat uit</h5>"); }
-                                ?>
+                        <div class="row">
+                            <div class="col-6">
+                                <span class="input-group-text" style="margin: 2px">Kortingscode</span></div>
+                            <div class="col-3">
+                                <form method="post" action="admin.php">
+                                <input style="border-radius: 12px; background-color: #34ce57" type="submit" name="ConversieMirre" value="Aan"></div>
+                                <div class="col-3">
+                                <input style="border-radius: 12px; background-color: coral" type="submit" name="UndoConversieMirre"  value="Uit"></div>
                             </form>
-
                         </div>
-                    <form method="post" action="admin.php">
-                            <span class="input-group-text col-9" style="margin: 2px" >Conversiemaatregel 2</span>
-                    <input type="submit" name="ConversieImre" value="Conversie aan">
-                    <input type="submit" name="UndoConversieImre"  value="Conversie uit">
-                    <?php if ($ConversieImre) { print (" <h5> Conversie staat aan </h5>"); } else { print (" <h5> Conversie staat uit </h5>");} ?>
-
-
-                                </form>
-                            </div>
-                        <span class="input-group-text col-9" style="margin: 2px" >Conversiemaatregel 3</span>
-                        <div class="col-2" style="alignment: right;">
-                            <input type="checkbox" name="Conversie3" <?php if (isset($_POST['Conversie3'])) { print ("Checked");} ?>>
-
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="row">
+                            <div class="col-6">
+                                <span class="input-group-text" style="margin: 2px" >Verzendkosten</span></div>
+                                <div class="col-3">
+                                    <form method="post" action="admin.php">
+                                        <input style="border-radius: 12px;background-color: #34ce57" type="submit" name="ConversieImre" value="Aan"></div>
+                            <div class="col-3">
+                                <input style="border-radius: 12px;background-color: coral" type="submit" name="UndoConversieImre"  value="Uit"></div>
+                        </form>
+                        </div>
+                    </div>
                         </div>
                     </div>
                 </div>
