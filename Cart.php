@@ -3,6 +3,9 @@
 include "cartfuncties.php";
 include __DIR__ . "/header.php";
 $StockGroups = getStockGroups($databaseConnection);
+$ConversieMirre = getConv();
+$ConversieImre = getConvImre();
+
 ?>
 
 <div class="row">
@@ -17,6 +20,15 @@ $StockGroups = getStockGroups($databaseConnection);
         $cartItem =[];
         $verzendkosten = 0;
 
+        if (isset($_POST['DeleteKorting'])) {
+            deletekorting($_POST['Kortingscode']);
+            print '<meta http-equiv="refresh" content="0">';
+        }
+        if (isset($_POST['Kortingscode'])) {
+            error_reporting(E_ERROR | E_PARSE);
+            addkorting($_POST['Kortingscode']);
+            print '<meta http-equiv="refresh" content="0">';
+        }
         if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['increaseItem'])) {
             increaseAmountOfCart($_POST['increaseItem']);
             print '<meta http-equiv="refresh" content="0">';
@@ -31,8 +43,9 @@ $StockGroups = getStockGroups($databaseConnection);
         }
         $aantalArtikelen = null;
         // loop trough every item in cart
-        if($cart){
+
             foreach ($cart as $key => $StockItem) {
+                $aantalArtikelen++;
                 $cartItem = getStockItem($key, $databaseConnection);
                 $id = $cartItem["StockItemID"];
                 $StockItemImage = getStockItemImage($id, $databaseConnection);
@@ -61,7 +74,6 @@ $StockGroups = getStockGroups($databaseConnection);
                                                 <?php
                                             } ?>
                                         </ul>
-
                                         <!-- slideshow -->
                                         <div class="carousel-inner">
                                             <?php for ($i = 0; $i < count($StockItemImage); $i++) {
@@ -110,6 +122,7 @@ $StockGroups = getStockGroups($databaseConnection);
                     </div>
                     <div class="col-2 text-center">
                         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                          <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
                             <div>
                                 <button style="background-color:#676EFF; border-radius: 12px; width: 30px; border: 1px rgba(35, 40, 47, 0.8); margin-top: 40px;"
                                         type="submit" name="increaseItem" value="<?php print($id) ?>">+
@@ -132,12 +145,6 @@ $StockGroups = getStockGroups($databaseConnection);
                             </div>
                         </form>
                         <div>
-                            <p>
-                                <?php
-                                $verzendkosten = ($cartItem['SendCosts']);
-                                print round($verzendkosten, 2);
-                                ?>
-                            </p>
                             <p> Subtotaal: <?php
                                 $total = $orderAmount * $cartItem['SellPrice'];
                                 print round($total, 2); ?>
@@ -145,39 +152,138 @@ $StockGroups = getStockGroups($databaseConnection);
                         </div>
                     </div>
                 </div>
-                <?php
-                $totalShoppingValue += $total;
-            };
-            $verzendkosten = $cartItem['SendCosts'];
-        }else{ 
-        ?>
-            <h1>uw winkelwagen is leeg</h1>
         <?php
+        $totalShoppingValue += $total;
+        };
+        // if ($_SESSION["loggedin"] == 1) {
+        //     $loggedIn = true;
+        // } else {
+        //     $loggedIn = false;
+        // } && $loggedIn && !$loggedIn
+    if ($ConversieImre) {
+        if ($aantalArtikelen > 0 && $totalShoppingValue > 60.00) {
+            $verzendkosten = 0;
+        }else {
+            $verzendkosten = $cartItem['SendCosts'];
+        }
+        } else{
+            $verzendkosten = $cartItem['SendCosts'];
         }
         ?>
-        <div class="row">
-            <div class="col-10"></div>
-            <div class="col-2">
-                <p class="text-center">Verzendkosten: <?php print (round($verzendkosten, 2)); ?></p>
+                <p style="text-left">
+        <?php if ($ConversieImre) { ?>
+        <p class="text-danger"<a><?php if ($aantalArtikelen > 0) {
+                        print ("Bestellingen boven de 60 euro geen verzendkosten!");
+                    } ?> </a></p> <?php } ?>
+                <div class="container">
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col-7"></div>
+                        <div class="col"><p style="text-align: right">
+                                <a>Verzendkosten: <?php print (number_format(round($verzendkosten, 2), 2)); ?></a>
+
+                            </p>
+                        </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-10"></div>
-            <div class="col-2">
-                <p class="text-center">Totaal: <?php print (round($totalShoppingValue , 2) + $verzendkosten ); ?></p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-10"></div>
-            <div class="col-2 text-center">
-                <?php if ($totalShoppingValue != 0) { ?>
-                    <a href="gegevens.php" class="btn btn-primary btn-lg">Naar checkout</a>
-                <?php 
-                } 
-                ?>
-            </div>
-        </div>
+            <?php if ($totalShoppingValue != 0) {
+                if ($ConversieMirre) { ?>
+                <form method='post' action="Cart.php">
+                    <div class='form-group row px-3'>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col"></div>
+                                <div class="col-7"><h5 class="form-group" style="text-align: right">Kortingscode:</h5></div>
+                                <div class="col">
+                                    <input class="form-control"
+                                           style="float: right; border: 1px rgba(35, 40, 47, 0.8); color: black; width: 120px; <?php if (isset($_POST['Kortingscode'])) {
+                                               if ($_POST['Kortingscode'] == "KORTING" || $_POST['Kortingscode'] == 'ACCOUNT') {
+                                                   print ("background-color: #28a745");
+                                               }
+                                           } ?>" class='form-control col-2' name='Kortingscode' value="<?php
+                                    if (isset($_POST['Kortingscode'])) {
+
+                                        print ($_POST['Kortingscode']);
+                                    }
 
 
+            }
+
+            ?>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="col">
+                                <?php foreach ($korting as $Kortingscode => $waarde) {
+                                    if (isset($korting[$Kortingscode])) {
+                                        print ("
+                            <button style=\" margin-right: -80px; background-color: #676EFF; border-radius: 12px;width: 40px;border: 1px rgba(35, 40, 47, 0.8);\"
+                                    type=\"submit\" name=\"DeleteKorting\" class=\"btn btn-light\">
+                                <span class=\"bi bi-trash\"></span>
+                            </button>");
+                                    }
+                                }
+                                ?>
+                                <input style=" float: right; border-radius: 12px; background-color: #676EFF; border: 1px rgba(35, 40, 47, 0.8);"
+                                       class='col-7' type='submit' value='Kortingscode toepassen'>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+<?php           } ?>
+                <a class=p-9 style="<?php error_reporting(E_ERROR | E_PARSE);
+                if (isset($korting["KORTING"])) {
+                    print ("margin-left: 78%; color:green");
+
+                } ?> ;"> <?php
+                    $Kortingscode = ($_POST['Kortingscode']);
+                    if (isset( $korting["KORTING"])) {
+                        print ("Kortingscode is toegepast!");
+                    }
+                    ?></a>
+                <?php
+
+            ?>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-7"></div>
+                <div class="col">
+                    <?php if ($ConversieMirre) { ?>
+                    <p style=" text-align: right;"><a>Korting: <?php
+                            if ($korting) {
+                                foreach ($korting as $Kortingscode => $waarde) {
+                                    print(number_format(round((1 - $waarde) * $totalShoppingValue, 2), 2));
+                                }
+                            } else {
+                                print ("0.00");
+                            } ?></a></p> <?php }?>
+                    <p style=" text-align: right;"><a>Totaal: <?php
+                            error_reporting(E_ERROR | E_PARSE);
+                            if (array_key_exists($Kortingscode, $korting)) {
+                                print (number_format($verzendkosten + round($totalShoppingValue * ($korting[$Kortingscode]), 2), 2));
+                            } else {
+                                print (number_format($verzendkosten + round($totalShoppingValue, 2), 2));
+                            }
+                            ?> </a></p>
+                </div>
+            </div>
+
+        <?php if ($totalShoppingValue != 0) {
+            print ("<form action='gegevens.php'> <input type='submit' style=\"background-color: #676EFF; font-size: large; border-radius: 12px;width: 150px; height: 40px; border: 1px rgba(35, 40, 47, 0.8); margin-left: 81%;\" value='Naar checkout'></form>");
+        }
+        ?>
+        <p style=" margin-bottom: 5%;"><a href='view.php?id=<?php $rand = (rand(1, 200));
+            if ($rand != NULL) {
+                print $rand;
+            } else {
+                print 1;
+            } ?>'>Naar willekeurige artikelpagina</a></p>
     </div>
 </div>
