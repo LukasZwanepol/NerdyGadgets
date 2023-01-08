@@ -181,6 +181,11 @@ function login ($connection, $email, $password){
     }
 }
 
+function logout (){    
+    $_SESSION["loggedin"] = false;
+    $_SESSION["userid"] = 0;
+    $_SESSION["mail"] = 0;
+}
 
 function aanmelden($connection, $email, $password_1, $password_2)
 {

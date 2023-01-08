@@ -53,7 +53,13 @@ $databaseConnection = connectToDatabase();
                 if($_SESSION["loggedin"] ){
                 ?>
                     <li class="nav-item">
-                        <a href="inlogPagina.php" class="nav-item nav-link disabled" id="inlog">ingelogd</a>
+                        <a href="inlogPagina.php" class="nav-item nav-link" id="inlog">ingelogd</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="admin.php" class="nav-item nav-link" id="winkelwagen">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="BekijkenOverzicht.php" class="nav-item nav-link" id="klanten">Klantoverzicht</a>
                     </li>
                 <?php
                 }else{
@@ -64,12 +70,6 @@ $databaseConnection = connectToDatabase();
                 <?php    
                 }
                 ?>
-                <li class="nav-item">
-                    <a href="admin.php" class="nav-item nav-link" id="winkelwagen">Admin</a>
-                </li>
-                <li class="nav-item">
-                    <a href="BekijkenOverzicht.php" class="nav-item nav-link" id="klanten">Klantoverzicht</a>
-                </li>
                 <li class="nav-item">
                     <a href="cart.php" class="nav-item nav-link" id="winkelwagen">Winkelwagen</a>
                 </li>

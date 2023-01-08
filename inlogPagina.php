@@ -1,9 +1,9 @@
 <?php
 include __DIR__ . "/header.php";
+
+if(!$_SESSION["loggedin"] ){
 ?>
-
-
-<body>
+<div class="container">
     <div class="col-4">
         <h1>Inloggen</h1>
         <form method="post">
@@ -18,12 +18,31 @@ include __DIR__ . "/header.php";
             <button type="Inlog" class="btn btn-primary" name="Inlog">Log in</button>
         </form>
     </div>
-</body>
+</div>
+<?php
+}else{
+?>
+<div class="container">
+    <div class="col-4">
+        <h1>uitloggen</h1>
+        <form method="post">
+            <button type="logout" class="btn btn-primary" name="logout">Uit loggen</button>
+        </form>
+    </div>
+</div>
+<?php
+}
+?>
 <?php
 $connection = connectToDatabase();
 if (isset($_POST["Inlog"])) {
         $email = $_POST["InputEmail"];
         $password = hash("sha256" ,$_POST["InputPassword"]);
         login($connection, $email, $password);
+        print '<meta http-equiv="refresh" content="0">';
     }
+if (isset($_POST["logout"])) {
+    logout();
+    print '<meta http-equiv="refresh" content="0">';
+}
 ?>
