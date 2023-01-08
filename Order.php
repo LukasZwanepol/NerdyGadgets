@@ -60,7 +60,7 @@ if(!isset($_POST["Voornaam"])){
                             <option value="1" name="Ideal">Ideal</option>
                             <option value="2" disabled name="Credit card">Credit card</option>
                         </select>
-                        <!dropdown menu met ideal en credit card ofzo>
+                        <!-- <!dropdown menu met ideal en credit card ofzo> -->
                     </div>
                     <div class="form-group d-flex justify-content-end px-4">
                         <a href="https://www.ideal.nl/demo/qr/?app=ideal" class="button form-control w-25 h-100"
