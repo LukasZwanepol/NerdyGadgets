@@ -18,17 +18,7 @@ $ConversieImre = getConvImre();
         $korting = getKorting();
         $totalShoppingValue = 0;
         $cartItem =[];
-
-
-        if (isset($_POST['DeleteKorting'])) {
-            deletekorting($_POST['Kortingscode']);
-            print '<meta http-equiv="refresh" content="0">';
-        }
-        if (isset($_POST['Kortingscode'])) {
-            error_reporting(E_ERROR | E_PARSE);
-            addkorting($_POST['Kortingscode']);
-            print '<meta http-equiv="refresh" content="0">';
-        }
+        $verzendkosten = 0;
 
         if (isset($_POST['DeleteKorting'])) {
             deletekorting($_POST['Kortingscode']);
@@ -84,8 +74,6 @@ $ConversieImre = getConvImre();
                                                 <?php
                                             } ?>
                                         </ul>
-
-
                                         <!-- slideshow -->
                                         <div class="carousel-inner">
                                             <?php for ($i = 0; $i < count($StockItemImage); $i++) {
@@ -114,33 +102,24 @@ $ConversieImre = getConvImre();
                             <?php
                         }
                         ?>
-
-                        <div id="ImageFrame"
-                             style="background-image: url('Public/StockGroupIMG/<?php print $cartItem['BackupImagePath']; ?>'); background-size: cover; width:300px;"></div>
-                        <?php
-                    }
-                    ?>
-                    <h1 class="StockItemName" style=font-size:160%>
-                        <?php print $cartItem['StockItemName']; ?>
-                    </h1>
-                    <h2 class="StockItemIDa"
-                        style="font-size:80%; margin-top:2%"> <?php print ("Artikelnummer: $id"); ?>
-                    </h2>
-                    <div style="margin-top: 5%;">Voorraad: <?php print $cartItem['QuantityOnHand']; ?></div>
-                    <div id="StockItemHeaderLeft">
-                        <div class="CenterPriceLeft">
-                            <div class="CenterPriceLeftChild">
-                                <p class="StockItemPriceText"
-                                   style="margin-top: -60px;font-family:pt-sans, sans-serif;">
-                                    <b><?php print sprintf("€ %.2f", $cartItem['SellPrice']); ?></b></p>
-                                <h6 style="margin-top: -5%; font-size: 70%"> Inclusief BTW </h6>
-
+                        <h1 class="StockItemName" ; style=font-size:160%>
+                            <?php print $cartItem['StockItemName']; ?>
+                        </h1>
+                        <h2 class="StockItemIDa"
+                            style="font-size:80%; margin-top:2%"> <?php print ("Artikelnummer: $id"); ?>
+                        </h2>
+                        <div style="margin-top: 5%;">Voorraad: <?php print $cartItem['QuantityOnHand']; ?></div>
+                        <div id="StockItemHeaderLeft">
+                            <div class="CenterPriceLeft">
+                                <div class="CenterPriceLeftChild">
+                                    <p class="StockItemPriceText"
+                                    style="margin-top: -60px;font-family:pt-sans, sans-serif;">
+                                        <b><?php print sprintf("€ %.2f", $cartItem['SellPrice']); ?></b></p>
+                                    <h6 style="margin-top: -5%; font-size: 70%"> Inclusief BTW </h6>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-2 text-center">
-                    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="col-2 text-center">
                         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                           <input type="hidden" name="token" value="<?php echo $_SESSION['token'] ?? '' ?>">
@@ -173,7 +152,6 @@ $ConversieImre = getConvImre();
                         </div>
                     </div>
                 </div>
-
         <?php
         $totalShoppingValue += $total;
         };
@@ -307,7 +285,5 @@ $ConversieImre = getConvImre();
             } else {
                 print 1;
             } ?>'>Naar willekeurige artikelpagina</a></p>
-
-
     </div>
 </div>

@@ -60,7 +60,7 @@ if(!isset($_POST["Voornaam"])){
                             <option value="1" name="Ideal">Ideal</option>
                             <option value="2" disabled name="Credit card">Credit card</option>
                         </select>
-                        <!dropdown menu met ideal en credit card ofzo>
+                        <!-- <!dropdown menu met ideal en credit card ofzo> -->
                     </div>
                     <div class="form-group d-flex justify-content-end px-4">
                         <a href="https://www.ideal.nl/demo/qr/?app=ideal" class="button form-control w-25 h-100"
@@ -94,13 +94,11 @@ if(!isset($_POST["Voornaam"])){
                                 if (count($StockItemImage) == 1) {
                                     ?>
                                     <div id="ImageFrame" class="form-control" style="background-image: url('Public/StockItemIMG/<?php print $StockItemImage[0]['ImagePath']; ?>'); background-repeat: no-repeat; background-position: center;"></div>
-
                                     <?php
                                 } else {
                                     ?>
                                     <div id="ImageFrame" class="form-control h-100"
                                          style="background-image: url('Public/StockGroupIMG/<?php print $Items['BackupImagePath']; ?>'); background-size: cover;"></div>
-
                                     <?php
                                 }
                                 ?>
