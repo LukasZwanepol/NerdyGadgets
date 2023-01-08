@@ -18,19 +18,6 @@ If (isset($_POST['UndoConversieMirre'])) {
     print '<meta http-equiv="refresh" content="0">';
 
 }
-
-If (isset($_POST['ConversieImre'])) {
-    addConvImre($_POST['ConversieImre']);
-    print '<meta http-equiv="refresh" content="0">';
-}
-
-If (isset($_POST['UndoConversieImre'])) {
-    error_reporting(E_ERROR | E_PARSE);
-    deleteConvImre($_POST['ConversieImre']);
-    print '<meta http-equiv="refresh" content="0">';
-
-}
-
 ?>
 
 
@@ -41,6 +28,7 @@ If (isset($_POST['UndoConversieImre'])) {
                 Admin
             </div>
             <div class="card-body">
+
                 <button onclick=Mode()>Toggle mode</button>
                 <br>
 
@@ -74,6 +62,7 @@ If (isset($_POST['UndoConversieImre'])) {
                         </form>
                         </div>
                     </div>
+
                         </div>
                     </div>
                 </div>

@@ -126,7 +126,6 @@ function deleteConv($key){
         unset($ConversieMirre[$key]);
     }
     saveConv($ConversieMirre);
-
 }
 
 function getConvImre()
@@ -167,5 +166,4 @@ function deleteConvImre($key){
         unset($ConversieImre[$key]);
     }
     saveConvImre($ConversieImre);
-
 }

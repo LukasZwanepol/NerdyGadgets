@@ -17,7 +17,9 @@ $ConversieImre = getConvImre();
         $cart = getCart();
         $korting = getKorting();
         $totalShoppingValue = 0;
+
         $cartItem = [];
+
 
         if (isset($_POST['DeleteKorting'])) {
             deletekorting($_POST['Kortingscode']);
@@ -42,6 +44,7 @@ $ConversieImre = getConvImre();
         }
         $aantalArtikelen = null;
         // loop trough every item in cart
+
         foreach ($cart as $key => $StockItem) {
             $aantalArtikelen++;
             $cartItem = getStockItem($key, $databaseConnection);
@@ -72,6 +75,7 @@ $ConversieImre = getConvImre();
                                             <?php
                                         } ?>
                                     </ul>
+
 
                                     <!-- slideshow -->
                                     <div class="carousel-inner">
@@ -118,6 +122,7 @@ $ConversieImre = getConvImre();
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="col-2 text-center">
                     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -131,6 +136,7 @@ $ConversieImre = getConvImre();
                             print($orderAmount);
                             ?>
                         </div>
+
                         <div>
                             <button style="background-color: #676EFF; border-radius: 12px;width: 30px;border: 1px rgba(35, 40, 47, 0.8);"
                                     type="submit" name="decreaseItem" value="<?php print($id) ?>">-
@@ -150,16 +156,19 @@ $ConversieImre = getConvImre();
                         </p>
                     </div>
                 </div>
+
             </div>
 
             <?php
             $totalShoppingValue += $total;
+
         };
         // if ($_SESSION["loggedin"] == 1) {
         //     $loggedIn = true;
         // } else {
         //     $loggedIn = false;
         // } && $loggedIn && !$loggedIn
+
         if ($ConversieImre) {
             if ($aantalArtikelen > 0 && $totalShoppingValue > 60.00) {
                 $verzendkosten = 0;
@@ -171,6 +180,7 @@ $ConversieImre = getConvImre();
             error_reporting(E_ERROR | E_PARSE);
             $verzendkosten = $cartItem['SendCosts'];
         }
+
         ?>
         <p style="text-left">
             <?php if ($ConversieImre) { ?>
@@ -275,7 +285,7 @@ $ConversieImre = getConvImre();
                             ?> </a></p>
                 </div>
             </div>
-        </div>
+
         <?php if ($totalShoppingValue != 0) {
             print ("<form action='gegevens.php'> <input type='submit' style=\"background-color: #676EFF; font-size: large; border-radius: 12px;width: 150px; height: 40px; border: 1px rgba(35, 40, 47, 0.8); margin-left: 81%;\" value='Naar checkout'></form>");
         }
@@ -286,6 +296,5 @@ $ConversieImre = getConvImre();
             } else {
                 print 1;
             } ?>'>Naar willekeurige artikelpagina</a></p>
-
     </div>
 </div>
