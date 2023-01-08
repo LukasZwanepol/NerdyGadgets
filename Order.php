@@ -137,7 +137,7 @@ if(!isset($_POST["Voornaam"])){
             </div>
             <div class="col-4"></div>
             <!-- display sendCosts of cart -->
-            <div class="col-6 mx-4 mb-4 border rounded">
+            <div class="col-12 mx-4 mb-4 border rounded">
                 <h4> Verzendkosten : <p class="text-right"> <?php print(round($verzendkosten, 2)); ?></p></h4>
                 <h4> Korting: <p class="text-right"> <?php
                             $totalShoppingValue += $total;

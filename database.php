@@ -161,6 +161,7 @@ function login ($connection, $email, $password){
     $R = mysqli_stmt_get_result($Statement);
     $result = mysqli_fetch_all($R, MYSQLI_ASSOC);
 
+    error_reporting(E_ERROR | E_PARSE);
     if ($password == $result[0]['HashedPassword']){
         $query = "SELECT PersonID
                     FROM people
@@ -177,7 +178,8 @@ function login ($connection, $email, $password){
         $_SESSION["mail"] = $email;
         print("Gelukt!");
     } else {
-        print("niet goede combo");
+        error_reporting(E_ERROR | E_PARSE);
+        print("Het wachtwoord of de email is onjuist. Probeer het nog een keer");
     }
 }
 
