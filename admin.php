@@ -28,9 +28,18 @@ If (isset($_POST['UndoConversieMirre'])) {
                 Admin
             </div>
             <div class="card-body">
-                <button onclick=Mode()>light/ dark mode</button>
+
+                <button onclick=Mode()>Toggle mode</button>
+                <br>
+
+                <?php if ($ConversieMirre) { print ("<h5 style='color: #34ce57'>'Kortingscode' = aan</h5>"); }
+                else { print ("<h5 style='color: coral'>'Kortingscode' = uit</h5>"); }
+                ?>
+                <?php if ($ConversieImre) { print (" <h5 style='color: #34ce57'> 'Verzendkosten' = aan</h5>"); } else { print (" <h5 style='color: coral'> 'Verzendkosten' = uit</h5>");} ?>
+                <br>
                 <div class="form-group">
                     <div class="input-group mb-3">
+
                         <span class="input-group-text col-9" style="margin: 2px">Conversiemaatregel 1</span>
                         <form method="post" action="admin.php">
                             <input type="submit" name="ConversieMirre" value="Conversie aan">
@@ -56,6 +65,7 @@ If (isset($_POST['UndoConversieMirre'])) {
                         <span class="input-group-text col-9" style="margin: 2px" >Conversiemaatregel 3</span>
                         <div class="col-2" style="alignment: right;">
                             <input type="checkbox" name="Conversie3" <?php if (isset($_POST['Conversie3'])) { print ("Checked");} ?>>
+
                         </div>
                     </div>
                 </div>
