@@ -166,9 +166,7 @@ $ConversieImre = getConvImre();
         }else {
             $verzendkosten = $cartItem['SendCosts'];
         }
-        } else{
-            $verzendkosten = $cartItem['SendCosts'];
-        }
+    }
         ?>
                 <p style="text-left">
         <?php if ($ConversieImre) { ?>
