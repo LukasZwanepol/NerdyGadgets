@@ -15,9 +15,11 @@ if(!$_SESSION["loggedin"] ){
                 <label for="exampleInputPassword1" class="form-label">Wachtwoord</label>
                 <input type="password" class="form-control" name="InputPassword">
             </div>
-            <button type="Inlog" class="btn btn-primary" name="Inlog">Log in</button>
+            <button type="Inlog" class="btn btn-primary m-5" name="Inlog">Log in</button>
         </form>
     </div>
+    <button href="aanmelden.php" type="button" class="btn btn-primary m-5" id="aanmelden">registreren</button>
+
 </div>
 <?php
 }else{
