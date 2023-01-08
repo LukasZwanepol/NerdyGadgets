@@ -9,7 +9,7 @@ $totalShoppingValue = 0;
 $total = 0;
 ?>
 <?php
-if(!isset($_POST["Voornaam"])){
+if(!isset($_POST["Naam"])){
     header("Location: ./");
     die();
 }else{
@@ -23,8 +23,14 @@ if(!isset($_POST["Voornaam"])){
                 <div class="form-group">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Naam</span>
-                        <p type="text" class="form-control"><?php if (isset($_POST["Voornaam"])) {
-                                print ($_POST["Voornaam"] . " " . $_POST["Achternaam"]);
+                        <p type="text" class="form-control"><?php if (isset($_POST["Naam"])) {
+                                print ($_POST["Naam"]);
+                            } ?></p>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Telefoonnummer</span>
+                        <p type="text" class="form-control"><?php if (isset($_POST["Telefoonnummer"])) {
+                                print ($_POST["Telefoonnummer"]);
                             } ?></p>
                     </div>
                     <div class="input-group mb-3">
